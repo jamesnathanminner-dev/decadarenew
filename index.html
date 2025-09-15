@@ -87,43 +87,35 @@
   .modal-card{max-width:640px;position:relative;font-size:1.2rem}
   .close-x{position:absolute;top:12px;right:12px;font-size:1.5rem}
 
-  #account {
-    display: flex;flex-direction: column;align-items: center;justify-content: center;text-align: center;
-    padding: 32px;font-size:1.2rem;
-  }
-  #accountInfo {display: flex;flex-direction: column;align-items: center;gap: 16px;}
-  #accountInfo input,#accountInfo button {width: 80%;max-width: 340px;font-size:1.2rem;padding:12px;}
-  #avatarPreview {
-    width: 140px;height: 140px;border-radius: 50%;object-fit: cover;border: 3px solid #8b0000;
-  }
-  .btn-change-avatar {
-    display: inline-block;margin-top: 12px;padding: 10px 16px;background: #8b0000;color: #fff;
-    border-radius: 8px;cursor: pointer;font-size: 1.1rem;
-  }
-  .btn-change-avatar:hover {background: #a00000;}
-  #navAvatar {
-    width: 48px;height: 48px;border-radius: 50%;object-fit: cover;margin-left: 12px;cursor: pointer;border: 2px solid #fff;
-  }
+
+
+/* Ensure only the active page is visible */
+main section { display: none; }
+main section.active { display: block; }
+
 </style>
 
 </head>
 <body>
 <header>Decadare — Master Notifications v6</header>
-<nav>
-  <button onclick="navTo('account')">Account</button>
-  <img id="navAvatar" src="" alt="Avatar" style="display:none;">
-  <button onclick="navTo('home')">Home</button>
-  <button onclick="navTo('create')">Create</button>
-  <button onclick="navTo('active')">Active</button>
-  <button onclick="navTo('wins')">Wins</button>
-  <button onclick="navTo('proof')">Proof</button>
-  <button onclick="navTo('history')">History</button>
-</nav>
+<header style="position:fixed;top:0;left:0;width:100%;height:50px;display:flex;align-items:center;justify-content:space-between;background:#fff5f7;border-bottom:1px solid #f2d7dd;z-index:1000;padding:0 10px;">
+  <div style="display:flex;align-items:center;gap:8px;">
+    <img id="navAvatar" src="https://via.placeholder.com/40" alt="Avatar" style="height:40px;width:40px;border-radius:50%;cursor:pointer;" onclick="navTo(\'account\')">
+    <button id="homeBtn" class="btn btn-soft" onclick="navTo('home')">Home</button>
+  </div>
+  <button id="backBtn" class="btn btn-soft" style="display:none;" onclick="goBack()">Back</button>
+</header>
+<div style="height:60px;"></div>
 <main>
   <section id="home" class="active">
-  <div class="card">
+  <div class="card" style="display:flex;flex-direction:column;gap:10px;">
     <h2>Welcome to Decadare</h2>
-    <p>Select a section from the navigation bar above to get started.</p>
+    <button class="btn" onclick="openAccount()">Account</button>
+    <button class="btn" onclick="navTo('create')">Create</button>
+    <button class="btn" onclick="navTo('active')">Active</button>
+    <button class="btn" onclick="navTo('wins')">Wins</button>
+    <button class="btn" onclick="navTo('proof')">Proof</button>
+    <button class="btn" onclick="navTo('history')">History</button>
   </div>
 </section>
 
@@ -193,8 +185,7 @@
       <p>Rules: <span id="detailRules"></span></p>
       <p>Series: <span id="detailSeries"></span></p>
       <p>Response Required: <span id="detailRequiresResponse"></span></p>
-      ${c.expired ? `<p class="chip">Expired</p>` : ""}
-      <p>Time left: <span class="timer" id="detailTimer"></span></p>
+            <p>Time left: <span class="timer" id="detailTimer"></span></p>
       <div class="row">
         <button class="btn" onclick="sendChallenge()">Send to Opponent</button>
         <button class="btn btn-soft" onclick="navTo('create')">Back</button>
@@ -222,16 +213,32 @@
     <div id="historyList"></div>
   </section>
 
-<section id="account" style="display:none;">
-  <h2>Account</h2>
-  <div id="accountInfo">
-    <img id="avatarPreview" src="" alt="Avatar">
-    <label for="avatarUpload" class="btn-change-avatar">Change Avatar</label>
-    <input type="file" id="avatarUpload" accept="image/*" style="display:none;">
-    <p><input type="text" id="username" placeholder="Name" autocomplete="off" name="username"></p>
-    <p><input type="email" id="useremail" placeholder="Email" autocomplete="email" name="email"></p>
-    <button id="saveBtn" onclick="saveAccount()">Save</button>
-    <button onclick="logout()">Logout</button>
+
+<section id="account">
+  <div class="card">
+    <h2>Account Information</h2>
+    <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:2px solid #999;margin-bottom:12px">
+    <input type="file" id="avatarUpload" accept="image/*">
+    <input type="text" id="username" placeholder="Name">
+    <input type="email" id="useremail" placeholder="Email">
+    <input type="tel" id="userphone" placeholder="Phone">
+    <div style="margin-top:10px;">
+      <button class="btn" onclick="saveAccount()">Save</button>
+      <button class="btn btn-soft" onclick="logout()">Logout</button>
+    </div>
+  </div>
+</section>
+
+
+<section id="signin">
+  <div class="card">
+    <h2>Sign In</h2>
+    <p><input class="input" type="email" id="signinEmail" placeholder="Email"></p>
+    <p><input class="input" type="password" id="signinPassword" placeholder="Password"></p>
+    <div class="row" style="margin-top:10px;">
+      <button class="btn" onclick="signIn()">Sign In</button>
+      <button class="btn btn-soft" onclick="openAccount()">Create Account</button>
+    </div>
   </div>
 </section>
 
@@ -333,14 +340,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 // ======= Router =======
 
-function navTo(id){
-  document.querySelectorAll("main section").forEach(sec=>{
-    sec.style.display="none";
-  });
-  const target=document.getElementById(id);
-  if(target){
-    target.style.display="block";
-  }
+function navTo(pageId){
+  document.querySelectorAll("main section").forEach(sec=>sec.classList.remove("active"));
+  const t=document.getElementById(pageId);
+  if(t){ t.classList.add("active"); }
+  const backBtn=document.getElementById('backBtn');
+  if(backBtn){ backBtn.style.display = (pageId==='home'||pageId==='signin') ? 'none' : 'inline-block'; }
+  if(pageId==='account' && typeof loadAccount==='function'){ loadAccount(); }
 }
 
 function toggleDD(h){ h.parentElement.classList.toggle("expanded"); }
@@ -735,93 +741,106 @@ renderAll();
 </script>
 
 <script>
-// --- Safe Nav Avatar Toggle Patch ---
-(function(){
-  // Ensure global state
-  if(!window.state){ window.state = { user:{name:'',email:'',loggedIn:false,avatar:null} }; }
-
-  function ensureNavElements(){
-    const nav = document.querySelector('nav');
-    if(!nav) return;
-    // Ensure Account button has id=accountBtn
-    let accountBtn = document.getElementById('accountBtn');
-    if(!accountBtn){
-      const btn = Array.from(nav.querySelectorAll('button')).find(b => {
-        const oc = b.getAttribute('onclick')||'';
-        return oc.indexOf("navTo('account')") !== -1 || oc.indexOf('navTo("account")') !== -1;
-      });
-      if(btn){ btn.id = 'accountBtn'; accountBtn = btn; }
-    }
-    // Ensure navAvatar exists
-    let navAvatar = document.getElementById('navAvatar');
-    if(!navAvatar){
-      navAvatar = document.createElement('img');
-      navAvatar.id = 'navAvatar';
-      navAvatar.alt = 'Avatar';
-      navAvatar.style.display='none';
-      navAvatar.style.width='36px';
-      navAvatar.style.height='36px';
-      navAvatar.style.borderRadius='50%';
-      navAvatar.style.objectFit='cover';
-      navAvatar.style.marginLeft='10px';
-      navAvatar.style.border='2px solid #fff';
-      nav.appendChild(navAvatar);
-    }
+let pageStack = [];
+function navTo(pageId){
+  const current = document.querySelector('main section.active');
+  if(current && current.id !== pageId){
+    pageStack.push(current.id);
+    current.classList.remove('active');
   }
+  document.querySelectorAll('main section').forEach(sec=>sec.classList.remove('active'));
+  const target = document.getElementById(pageId);
+  if(target){ target.classList.add('active'); }
+  const backBtn = document.getElementById('backBtn');
+  if(backBtn) backBtn.style.display = (pageId==="home" || pageId==="signin") ? "none" : "inline-block";
+  if(pageId === "account"){ loadAccount(); }
 
-  window.updateNavAvatar = function updateNavAvatar(){
-    try{
-      ensureNavElements();
-      const navAvatar = document.getElementById('navAvatar');
-      const accountBtn = document.getElementById('accountBtn');
-      const u = (window.state && window.state.user) ? window.state.user : null;
-      if(u && u.avatar){
-        if(navAvatar){
-          navAvatar.src = u.avatar;
-          navAvatar.style.display = 'inline-block';
-          navAvatar.onclick = () => (typeof navTo==='function' ? navTo('account') : null);
-        }
-        if(accountBtn){ accountBtn.style.display = 'none'; }
-      } else {
-        if(navAvatar){ navAvatar.style.display = 'none'; }
-        if(accountBtn){ accountBtn.style.display = 'inline-block'; }
-      }
-    }catch(e){ console.warn('updateNavAvatar error', e); }
+}
+function goBack(){
+  if(pageStack.length>0){
+    const prev = pageStack.pop();
+    document.querySelectorAll('main section').forEach(sec=>sec.classList.remove('active'));
+    const target = document.getElementById(prev) || document.getElementById('home');
+    if(target){ target.classList.add('active'); }
+    const backBtn = document.getElementById('backBtn');
+    if(backBtn) backBtn.style.display = (target.id==="home" || target.id==="signin") ? "none" : "inline-block";
+  } else {
+    navTo('home');
+  }
+}
+function getUser(){ try{ return JSON.parse(localStorage.getItem('decadareUser')||"{}"); }catch(e){ return {}; } }
+function setUser(obj){ localStorage.setItem('decadareUser', JSON.stringify(obj||{})); }
+function updateNavAvatar(){ const u=getUser(); const img=document.getElementById('navAvatar'); if(img) img.src = u.avatar||"https://via.placeholder.com/40"; }
+function loadAccount(){
+  const u = getUser();
+  if(document.getElementById('username')) document.getElementById('username').value = u.username || "";
+  if(document.getElementById('useremail')) document.getElementById('useremail').value = u.email || "";
+  if(document.getElementById('userphone')) document.getElementById('userphone').value = u.phone || "";
+  if(document.getElementById('avatarPreview')) document.getElementById('avatarPreview').src = u.avatar || "https://via.placeholder.com/100";
+}
+function saveAccount(){
+  const u={
+    username:(document.getElementById('username')?.value||"").trim(),
+    email:(document.getElementById('useremail')?.value||"").trim(),
+    phone:(document.getElementById('userphone')?.value||"").trim(),
+    avatar:document.getElementById('avatarPreview')?.src||null,
+    loggedIn:true
   };
+  setUser(u);
+  updateNavAvatar();
+  pageStack = [];
+  updateNavAvatar();
+  pageStack = []; updateNavAvatar(); navTo('home');
+}
+function logout(){ setUser({loggedIn:false}); updateNavAvatar(); navTo('signin'); }
+document.addEventListener('change',function(e){
+  if(e.target && e.target.id==='avatarUpload'){
+    const file=e.target.files[0]; if(file){ const reader=new FileReader(); reader.onload=()=>{
+      const a=document.getElementById('avatarPreview'); if(a) a.src=reader.result;
+      const u=getUser(); u.avatar=reader.result; u.loggedIn=true; setUser(u); updateNavAvatar();
+    }; reader.readAsDataURL(file);} } });
+function signIn(){
+  const email=(document.getElementById('signinEmail')?.value||"").trim();
+  const pw=(document.getElementById('signinPassword')?.value||"").trim();
+  if(!email||!pw){ alert("Enter email and password"); return; }
+  let u=getUser(); u.email=email;
+  if(!u.avatar) u.avatar="https://via.placeholder.com/40"; u.loggedIn=true; setUser(u); updateNavAvatar(); navTo('home');
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  updateNavAvatar(); const u=getUser();
+  if(u && u.loggedIn && u.email){ navTo("home"); } else { navTo("signin"); }
+  const navAvatar=document.getElementById('navAvatar');
+  if(navAvatar){ navAvatar.onclick=()=>{ loadAccount(); navTo('account'); }; }
+});
+</script>
 
-  document.addEventListener('DOMContentLoaded', function(){
-    // Load saved user if present and update nav
-    try {
-      const saved = localStorage.getItem('decadareUser');
-      if(saved){
-        const parsed = JSON.parse(saved);
-        if(!window.state) window.state = { user:{name:'',email:'',loggedIn:false,avatar:null} };
-        window.state.user = Object.assign({name:'',email:'',loggedIn:false,avatar:null}, parsed);
-      }
-    }catch(e){ console.warn('user load err', e); }
-    ensureNavElements();
-    updateNavAvatar();
+
+<script>
+function openAccount(){
+  if (typeof loadAccount === 'function') { loadAccount(); }
+  if (typeof navTo === 'function') { navTo('account'); }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  // Ensure only Home is active on load
+  var secs = document.querySelectorAll('main section');
+  secs.forEach(function(sec){
+    if(sec.id === 'home'){ sec.classList.add('active'); }
+    else { sec.classList.remove('active'); }
   });
+  // Make avatar open Account
+  var av = document.getElementById('navAvatar');
+  if(av){ av.onclick = openAccount; }
+});
+</script>
 
-  // Decorate saveAccount/logout to also toggle nav
-  const origSave = window.saveAccount;
-  window.saveAccount = function(){
-    try{ if(typeof origSave==='function') origSave(); }catch(e){ console.error(e); }
-    updateNavAvatar();
-  };
-  const origLogout = window.logout;
-  window.logout = function(){
-    try{ if(typeof origLogout==='function') origLogout(); }catch(e){ console.error(e); }
-    updateNavAvatar();
-  };
 
-  // After avatar file chosen, update nav shortly after any existing handlers run
-  document.addEventListener('change', function(e){
-    if(e && e.target && e.target.id === 'avatarUpload'){
-      setTimeout(updateNavAvatar, 150);
-    }
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('main section').forEach(sec=>{
+    if(sec.id==='home'){ sec.classList.add('active'); } else { sec.classList.remove('active'); }
   });
-})();
+});
 </script>
 
 </body>
