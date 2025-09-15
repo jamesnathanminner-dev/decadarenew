@@ -3,113 +3,201 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Decadare — Master Notifications v6 (Clean)</title>
+<title>Decadare (Clean)</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
   :root{
-    --red-dark:#8b0000; --red:#b22222; --red-soft:#a52a2a;
-    --rose:#ffe0e6; --ink:#332; --bg:rgba(165,42,42,0.33); --card:#fff; --border:#f2d7dd;
+    --red-dark:#8b0000; 
+    --red:#b22222; 
+    --red-soft:#a52a2a;
+    --rose:#330000;
+    --ink:#eee;      
+    --bg:#b22222;    
+    --card:#000000;  
+    --border:#ffffff; 
   }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html, body {
+    height:100%;
+    background:var(--bg);
+    color:var(--ink);
     font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    background:var(--bg);color:var(--ink);
-    font-size:1.5rem; /* bigger base font */
+    font-size:1.5rem;
     line-height:1.6;
   }
-  header{
-    background:var(--red-dark);color:#fff;text-align:center;
-    padding:32px; /* bigger padding */
-    border-radius:0 0 24px 24px;font-weight:700;
-    font-size:2rem;
+
+  /* ===== Header with glowing logo ===== */
+  .header-container {
+    position: fixed;       /* lock it to the top */
+    top: 0; left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1000;
+    padding: 100px 0;
+    background: var(--bg);
   }
-  nav{
-    position:sticky;top:0;z-index:10;display:flex;gap:12px;
-    background:var(--red);padding:12px;
+ .decadare-title {
+  position: absolute;
+  z-index: 2; /* keep it above the logo */
+  font-family: 'Great Vibes', cursive;
+  font-size: 4rem;
+  font-weight: normal;
+  color: #fff; /* black font */
+  text-shadow:
+     -2px -2px 0 #000,
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000,
+        0    0   16px rgba(255,192,203,0.9), /* stronger glow */
+     0    0   32px rgba(255,192,203,0.7); /* extended halo */
+}
+
+  .logo {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) scale(1.4);
+    width: 300px; height: 150px;
+    z-index: 0;
   }
-  nav button{
-    flex:1;border:0;border-radius:16px;padding:20px;
-    font-weight:700;background:var(--red-soft);color:#fff;cursor:pointer;
-    font-size:1.3rem;
+  .circle {
+    position: absolute; top: 0;
+    width: 150px; height: 150px;
+    border: 2px solid #fff; border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255,255,255,1),
+                0 0 40px rgba(255,192,203,0.9),
+                0 0 60px rgba(255,192,203,0.7);
+    animation: glowPulse 4s infinite ease-in-out;
   }
+  .circle.left { left: 0; }
+  .circle.right { right: 0; }
+  .spark {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+      rgba(255,255,255,1) 0%,
+      rgba(255,192,203,0.9) 35%,
+      rgba(255,192,203,0.2) 65%,
+      transparent 85%);
+    opacity: 0;
+    animation: sparkFlash 4s infinite ease-in-out;
+    pointer-events:none;
+  }
+  @keyframes glowPulse {
+    0%,100% { box-shadow:0 0 16px rgba(255,255,255,0.7);}
+    50% { box-shadow:0 0 32px rgba(255,192,203,1);}
+  }
+  @keyframes sparkFlash {
+    0%,30%,100% { opacity:0; transform:translate(-50%,-50%) scale(0.5);}
+    45%,55% { opacity:1; transform:translate(-50%,-50%) scale(1.3);}
+    70% { opacity:0.7; transform:translate(-50%,-50%) scale(0.9);}
+  }
+
+  /* ===== Rest of layout ===== */
+  nav{ position:sticky;top:0;z-index:10;display:flex;gap:12px;
+    background:var(--red);padding:12px; border:none;}
+  nav button{ flex:1;border:1px solid var(--border);border-radius:16px;padding:20px;
+    font-weight:700;background:var(--red-soft);color:#fff;cursor:pointer;font-size:1.3rem;}
   nav button:hover{background:var(--red-dark)}
-  main{padding:24px;max-width:960px;margin:0 auto;text-align:center}
-  section{display:none}
-  section.active{display:block;animation:fade .2s ease-in}
+  main{padding:20px 24px 24px;max-width:960px;margin:0 auto;text-align:center;background:var(--bg);}
+  section{display:none;background:var(--bg);}
+  section.active{display:block;animation:fade .2s ease-in;background:var(--bg);}
   @keyframes fade{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
-  h2,h3{color:var(--red-dark);margin:20px 0;text-align:center;font-size:1.8rem}
+  h2,h3{color:var(--red);margin:20px 0;text-align:center;font-size:1.8rem}
   .card{
-    background:var(--card);border-radius:20px;box-shadow:0 3px 12px rgba(0,0,0,.15);
-    padding:32px;margin:24px auto;text-align:center;max-width:880px;
-    font-size:1.2rem;
+    background:#000;
+    border-radius:20px;
+    padding:32px; margin:24px auto; text-align:center;
+    max-width:880px; font-size:1.2rem;
+    border:1px solid var(--border); color:var(--ink);
+    box-shadow: 0 0 8px rgba(255,192,203,0.6),
+                0 0 16px rgba(255,255,255,0.4),
+                0 0 24px rgba(255,192,203,0.2);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  .card:hover {
+    box-shadow: 0 0 12px rgba(255,192,203,0.8),
+                0 0 24px rgba(255,255,255,0.6),
+                0 0 36px rgba(255,192,203,0.4);
   }
   textarea,.input,select{
-    width:100%;border:1px solid #ccc;border-radius:16px;padding:16px;
-    font-size:1.2rem;
+    width:100%;border:1px solid var(--border);border-radius:16px;
+    padding:16px;font-size:1.2rem;background:#111;color:#eee;
   }
+  ::placeholder{color:#777;}
   .row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;align-items:center}
-  .chip{
-    display:inline-block;background:var(--rose);color:var(--red-dark);
-    border-radius:999px;padding:8px 16px;font-weight:700;font-size:1.1rem;
-  }
-  .btn{
-    border:0;border-radius:16px;padding:16px 20px;background:var(--red);
-    color:#fff;font-weight:700;cursor:pointer;font-size:1.2rem;
-  }
+  .chip{display:inline-block;background:var(--red-dark);color:#fff;
+    border-radius:999px;padding:8px 16px;font-weight:700;font-size:1.1rem;border:1px solid var(--border);}
+  .btn{border:1px solid var(--border);border-radius:16px;padding:16px 20px;background:var(--red);
+    color:#fff;font-weight:700;cursor:pointer;font-size:1.2rem;}
   .btn:hover{background:var(--red-dark)}
   .btn-soft{background:var(--red-soft)}
-  .dropdown{
-    border-radius:20px;background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.12);
-    overflow:hidden;margin:12px auto;max-width:860px;font-size:1.2rem;
-  }
-  .dropdown-header{
-    padding:16px;background:var(--red);color:#fff;font-weight:700;cursor:pointer;
-    text-align:center;font-size:1.3rem;
-  }
-  .dropdown-content{display:none;max-height:320px;overflow-y:auto;padding:12px}
+  .dropdown{border-radius:20px;background:var(--bg);margin:12px auto;max-width:860px;font-size:1.2rem;border:1px solid var(--border);}
+  .dropdown-header{font-family:'Great Vibes', cursive;font-size:2rem;font-weight:normal;color:var(--ink);text-align:center;margin:16px 0;}
+  .dropdown-content{display:none;max-height:320px;overflow-y:auto;padding:12px;background:var(--bg);}
   .dropdown.expanded .dropdown-content{display:block}
-  .option{
-    display:flex;justify-content:center;align-items:center;
-    border:1px solid var(--border);background:#fff7f8;
-    border-radius:16px;padding:12px;margin:8px 0;gap:16px;font-size:1.2rem;
-  }
-  .option button{
-    border:0;border-radius:12px;padding:10px 14px;background:var(--red);color:#fff;cursor:pointer;
-    font-size:1.1rem;
-  }
+  .option{display:flex;justify-content:center;align-items:center;border:1px solid var(--border);background:#111;
+    border-radius:16px;padding:12px;margin:8px 0;gap:16px;font-size:1.2rem;color:#eee;}
+  .option button{border:1px solid var(--border);border-radius:12px;padding:10px 14px;background:var(--red);color:#fff;cursor:pointer;font-size:1.1rem;}
   .option button:hover{background:var(--red-dark)}
-  .timer{font-weight:800;color:var(--red-dark);font-size:1.3rem}
+  .timer{font-weight:800;color:var(--red);font-size:1.3rem}
   .btn[disabled]{opacity:.5;pointer-events:none}
-
-  /* Modal base */
-  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:1000}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;z-index:1000}
   .modal-backdrop.show{display:flex}
-  .modal-card{max-width:640px;position:relative;font-size:1.2rem}
-  .close-x{position:absolute;top:12px;right:12px;font-size:1.5rem}
-
-
-
-/* Ensure only the active page is visible */
-main section { display: none; }
-main section.active { display: block; }
-
+  .modal-card{max-width:640px;position:relative;font-size:1.2rem;background:var(--bg);color:#eee;border:1px solid var(--border);}
+  .close-x{position:absolute;top:12px;right:12px;font-size:1.5rem;color:#fff;background:none;border:none;}
+  main section { display:none; }
+  main section.active { display:block; }
 </style>
+
 
 </head>
 <body>
-<header>Decadare — Master Notifications v6</header>
-<header style="position:fixed;top:0;left:0;width:100%;height:50px;display:flex;align-items:center;justify-content:space-between;background:#fff5f7;border-bottom:1px solid #f2d7dd;z-index:1000;padding:0 10px;">
-  <div style="display:flex;align-items:center;gap:8px;">
-    <img id="navAvatar" src="https://via.placeholder.com/40" alt="Avatar" style="height:40px;width:40px;border-radius:50%;cursor:pointer;" onclick="navTo(\'account\')">
+
+<div class="header-container" style="text-align:center; margin:40px auto; position:relative; display:inline-block; z-index:0;">
+  <!-- Glowing logo background -->
+  <div class="logo" style="position:relative; z-index:0;">
+    <div class="circle left"></div>
+    <div class="circle right"></div>
+    <div class="spark"></div>
+  </div>
+
+  <!-- Foreground Header text -->
+  <header class="decadare-title" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); z-index:2; font-family:'Great Vibes', cursive; font-size:4rem; color:#fff;"> Decadare
+ </header>
+</div>
+</body>
+
+  <!-- Avatar absolute top-left -->
+  <img 
+    id="navAvatar" 
+    src="https://via.placeholder.com/400" 
+    alt="Avatar"
+    style="position:absolute; top:20px; left:20px; height:200px; width:200px; border-radius:50%; cursor:pointer; z-index 1000;" 
+    onclick="navTo('account')"
+  >
+
+  <!-- Centered Home button -->
+  <div style="text-align:center; margin:12px 0;">
     <button id="homeBtn" class="btn btn-soft" onclick="navTo('home')">Home</button>
   </div>
-  <button id="backBtn" class="btn btn-soft" style="display:none;" onclick="goBack()">Back</button>
-</header>
-<div style="height:60px;"></div>
+
+  <main>
+
+  </header>
+<!-- In your <head> section, inside <style> add this -->
+
+
+
 <main>
   <section id="home" class="active">
   <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-    <h2>Welcome to Decadare</h2>
+    <h2>Turn moments into meaningful dares!</h2>
     <button class="btn" onclick="openAccount()">Account</button>
     <button class="btn" onclick="navTo('create')">Create</button>
     <button class="btn" onclick="navTo('active')">Active</button>
