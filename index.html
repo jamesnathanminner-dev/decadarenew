@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Decadare (Clean)</title>
+<title>Decadare (Updated Working)</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
   :root{
-    --red-dark:#8b0000; 
-    --red:#b22222; 
+    --red-dark:#8b0000;
+    --red:#b22222;
     --red-soft:#a52a2a;
     --rose:#330000;
-    --ink:#eee;      
-    --bg:#b22222;    
-    --card:#000000;  
-    --border:#ffffff; 
+    --ink:#eee;
+    --bg:#b22222;
+    --card:#000000;
+    --border:#ffffff;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html, body {
@@ -22,290 +22,473 @@
     background:var(--bg);
     color:var(--ink);
     font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    font-size:1.5rem;
-    line-height:1.6;
+    font-size:1.15rem;
+    line-height:1.5;
   }
-#navAvatar {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 2px solid white;
-  cursor: pointer;
-  z-index: 9999; /* stays on top */
-}
 
-  /* ===== Header with glowing logo ===== */
-  .header-container {
-    position: fixed;       /* lock it to the top */
-    top: 0; left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    z-index: 1000;
-    padding: 100px 0;
-    background: var(--bg);
+  /* Header with glow */
+  .header-bar {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    padding:12px 20px;
+    background:var(--bg);
   }
- .decadare-title {
-  position: absolute;
-  z-index: 2; /* keep it above the logo */
-  font-family: 'Great Vibes', cursive;
-  font-size: 4rem;
-  font-weight: normal;
-  color: #fff; /* black font */
-  text-shadow:
-     -2px -2px 0 #000,
-     2px -2px 0 #000,
-    -2px  2px 0 #000,
-     2px  2px 0 #000,
-        0    0   16px rgba(255,192,203,0.9), /* stronger glow */
-     0    0   32px rgba(255,192,203,0.7); /* extended halo */
-}
+  .header-left { display:flex; align-items:center; gap:12px; }
+  .header-center { flex:1; display:flex; justify-content:center; }
+  .header-right { display:flex; align-items:center; gap:12px; }
 
-  .logo {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%) scale(1.4);
-    width: 300px; height: 150px;
-    z-index: 0;
-  }
+  .logo { position:relative; width:300px; height:150px; display:flex; align-items:center; justify-content:center; }
   .circle {
-    position: absolute; top: 0;
-    width: 150px; height: 150px;
-    border: 2px solid #fff; border-radius: 50%;
-    box-shadow: 0 0 20px rgba(255,255,255,1),
-                0 0 40px rgba(255,192,203,0.9),
-                0 0 60px rgba(255,192,203,0.7);
+    position:absolute; top:0;
+    width:150px; height:150px;
+    border:2px solid #fff; border-radius:50%;
+    box-shadow: 0 0 30px rgba(255,255,255,1),
+                0 0 60px rgba(255,192,203,0.9),
+                0 0 90px rgba(255,192,203,0.7),
+                0 0 120px rgba(255,192,203,0.5);
     animation: glowPulse 4s infinite ease-in-out;
   }
-  .circle.left { left: 0; }
-  .circle.right { right: 0; }
+  .circle.left { left:0; }
+  .circle.right { right:0; }
   .spark {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    width: 80px; height: 80px;
-    border-radius: 50%;
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:80px; height:80px; border-radius:50%;
     background: radial-gradient(circle,
       rgba(255,255,255,1) 0%,
       rgba(255,192,203,0.9) 35%,
       rgba(255,192,203,0.2) 65%,
       transparent 85%);
-    opacity: 0;
-    animation: sparkFlash 4s infinite ease-in-out;
+    opacity:0; animation: sparkFlash 4s infinite ease-in-out;
     pointer-events:none;
   }
-  @keyframes glowPulse {
-    0%,100% { box-shadow:0 0 16px rgba(255,255,255,0.7);}
-    50% { box-shadow:0 0 32px rgba(255,192,203,1);}
-  }
-  @keyframes sparkFlash {
-    0%,30%,100% { opacity:0; transform:translate(-50%,-50%) scale(0.5);}
-    45%,55% { opacity:1; transform:translate(-50%,-50%) scale(1.3);}
-    70% { opacity:0.7; transform:translate(-50%,-50%) scale(0.9);}
+  @keyframes glowPulse { 0%,100%{box-shadow:0 0 16px rgba(255,255,255,0.7);} 50%{box-shadow:0 0 32px rgba(255,192,203,1);} }
+  @keyframes sparkFlash { 0%,30%,100%{opacity:0; transform:translate(-50%,-50%) scale(.5);} 45%,55%{opacity:1; transform:translate(-50%,-50%) scale(1.3);} 70%{opacity:.7; transform:translate(-50%,-50%) scale(.9);} }
+
+  .decadare-title {
+    position:absolute;
+    font-family:'Great Vibes', cursive;
+    font-size:3.25rem;
+    color:#fff;
+    text-shadow:
+      -2px -2px 0 #000, 2px -2px 0 #000,
+      -2px  2px 0 #000, 2px  2px 0 #000,
+      0 0 24px rgba(255,192,203,1), 
+      0 0 48px rgba(255,192,203,0.9),
+      0 0 72px rgba(255,192,203,0.7);
   }
 
-  /* ===== Rest of layout ===== */
-  nav{ position:sticky;top:0;z-index:10;display:flex;gap:12px;
-    background:var(--red);padding:12px; border:none;}
-  nav button{ flex:1;border:1px solid var(--border);border-radius:16px;padding:20px;
-    font-weight:700;background:var(--red-soft);color:#fff;cursor:pointer;font-size:1.3rem;}
-  nav button:hover{background:var(--red-dark)}
-  main{padding:20px 24px 24px;max-width:960px;margin:0 auto;text-align:center;background:var(--bg);}
-  section{display:none;background:var(--bg);}
-  section.active{display:block;animation:fade .2s ease-in;background:var(--bg);}
-  @keyframes fade{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
-  h2,h3{color:var(--red);margin:20px 0;text-align:center;font-size:1.8rem}
+  /* Buttons */
+  .btn{
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px 18px;
+    background:var(--red);
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    font-size:1rem;
+  }
+  .btn:hover{ background:var(--red-dark); }
+  .btn-soft{ background:transparent; border-color:#fff; }
+  .btn-soft:hover{ background:rgba(255,255,255,.1); }
+  .btn + .btn{ margin-left:10px; }
+
+  /* Layout */
+  main{ padding:0 16px 40px; max-width:980px; margin:0 auto; }
+  section{ display:none; }
+  section.active{ display:block; animation:fade .2s ease-in; }
+  @keyframes fade{ from{opacity:.5; transform:translateY(4px);} to{opacity:1; transform:none;} }
+
+  h2,h3{ color:var(--red); margin:16px 0; text-align:center; }
   .card{
     background:#000;
     border-radius:20px;
-    padding:32px; margin:24px auto; text-align:center;
-    max-width:600px; font-size:1.2rem;
+    padding:24px;
+    margin:18px auto;
+    text-align:center;
+    max-width:760px;
     border:1px solid var(--border); color:var(--ink);
     box-shadow: 0 0 8px rgba(255,192,203,0.6),
                 0 0 16px rgba(255,255,255,0.4),
                 0 0 24px rgba(255,192,203,0.2);
-    transition: box-shadow 0.3s ease-in-out;
   }
-  .card:hover {
-    box-shadow: 0 0 12px rgba(255,192,203,0.8),
-                0 0 24px rgba(255,255,255,0.6),
-                0 0 36px rgba(255,192,203,0.4);
-  }
+
   textarea,.input,select{
-    width:100%;border:1px solid var(--border);border-radius:16px;
-    padding:16px;font-size:1.2rem;background:#111;color:#eee;
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px;
+    font-size:1rem;
+    background:#111; color:#eee;
   }
-  ::placeholder{color:#777;}
-  .row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;align-items:center}
-  .chip{display:inline-block;background:var(--red-dark);color:#fff;
-    border-radius:999px;padding:8px 16px;font-weight:500;font-size:1.1rem;border:1px solid var(--border);}
-  .btn{border:1px solid var(--border);border-radius:16px;padding:16px 20px;background:var(--red);
-    color:#fff;font-weight:500;cursor:pointer;font-size:1.2rem;}
-  .btn:hover{background:var(--red-dark)}
-  .btn-soft{background:var(--red-soft)}
-  .dropdown{border-radius:20px;background:var(--bg);margin:12px auto;max-width:600px;font-size:1.2rem;border:1px solid var(--border);}
-  .dropdown-header{font-family:'Great Vibes', cursive;font-size:2rem;font-weight:normal;color:var(--ink);text-align:center;margin:16px 0;}
-  .dropdown-content{display:none;max-height:320px;overflow-y:auto;padding:12px;background:var(--bg);}
-  .dropdown.expanded .dropdown-content{display:block}
-  .option{display:flex;justify-content:center;align-items:center;border:1px solid var(--border);background:#111;
-    border-radius:16px;padding:12px;margin:8px 0;gap:16px;font-size:1.2rem;color:#eee;}
-  .option button{border:1px solid var(--border);border-radius:12px;padding:10px 14px;background:var(--red);color:#fff;cursor:pointer;font-size:1.1rem;}
-  .option button:hover{background:var(--red-dark)}
-  .timer{font-weight:800;color:var(--red);font-size:1.3rem}
-  .btn[disabled]{opacity:.5;pointer-events:none}
-  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;z-index:1000}
-  .modal-backdrop.show{display:flex}
-  .modal-card{max-width:640px;position:relative;font-size:1.2rem;background:var(--bg);color:#eee;border:1px solid var(--border);}
-  .close-x{position:absolute;top:12px;right:12px;font-size:1.5rem;color:#fff;background:none;border:none;}
-  main section { display:none; }
-  main section.active { display:block; }
-/* Responsive font adjustments for smaller screens */
-@media (max-width: 768px) {
-  html, body {
-    font-size: 1.1rem;   /* smaller base font */
-    line-height: 1.4;
+  .row{ display:flex; justify-content:center; align-items:center; gap:12px; flex-wrap:wrap; }
+  .chip{ display:inline-block; background:var(--red-dark); color:#fff; border-radius:999px; padding:6px 12px; font-weight:600; border:1px solid var(--border); }
+
+  .dropdown{ border-radius:18px; background:var(--bg); margin:10px auto; max-width:720px; border:1px solid var(--border); }
+  .dropdown-header{ font-family:'Great Vibes', cursive; font-size:1.75rem; font-weight:normal; color:var(--ink); text-align:center; padding:10px 0; cursor:pointer; }
+  .dropdown-content{ display:none; max-height:320px; overflow-y:auto; padding:12px; background:var(--bg); }
+  .dropdown.expanded .dropdown-content{ display:block; }
+  .option{ display:flex; justify-content:center; align-items:center; border:1px solid var(--border); background:#111; border-radius:16px; padding:10px; margin:8px 0; gap:12px; color:#eee; }
+  .option button{ border:1px solid var(--border); border-radius:10px; padding:8px 12px; background:var(--red); color:#fff; cursor:pointer; font-size:.95rem; }
+  .option button:hover{ background:var(--red-dark); }
+
+  .modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.92); display:none; align-items:center; justify-content:center; z-index:1000; }
+  .modal-backdrop.show{ display:flex; }
+  .modal-card{ max-width:640px; position:relative; background:var(--bg); color:#eee; border:1px solid var(--border); }
+
+  /* Responsive tweaks */
+  @media (max-width: 768px) {
+    .decadare-title{ font-size:2.4rem; }
+    .card{ padding:18px; }
+    .btn{ padding:10px 14px; font-size:.95rem; }
+    textarea,.input,select{ font-size:.95rem; padding:10px; }
   }
-  .decadare-title {
-    font-size: 2.5rem;   /* scale title down */
+
+  /* Avatar */
+  #navAvatar{ display:block; width:84px; height:84px; border-radius:50%; border:2px solid #fff; object-fit:cover; cursor:pointer; }
+
+
+  /* Scoped account field enhancements */
+  #account .card { text-align: left; }
+  #account .card .account-field {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    background: #111;
+    color: #eee;
+    font-size: 1.18rem;
+    height: 56px;
+    margin: 8px 0;
+    display: block;
   }
-  h2, h3 {
-    font-size: 1.4rem;
+
+
+  /* Scoped validation styles for Account fields */
+  #account .field-msg{ font-size:.92rem; margin-top:6px; min-height:1.1em; }
+  #account .field-msg.error{ color:#ffb3b3; }
+  #account .field-msg.valid{ color:#b6ffcc; }
+  #account .account-field.error{ border-color:#ff8f8f !important; box-shadow:0 0 0 2px rgba(255,0,0,.15); }
+  #account .account-field.valid{ border-color:#89ffb6 !important; box-shadow:0 0 0 2px rgba(0,255,128,.12); }
+
+  /* Wins 'New' notifier badge */
+  .badge-parent{ position:relative; }
+  .badge{
+    position:absolute; top:-6px; right:-6px;
+    background:#b6ffcc; color:#000;
+    border:1px solid var(--border);
+    border-radius:999px; padding:2px 6px;
+    font-weight:800; font-size:.72rem; text-transform:uppercase;
+    box-shadow:0 0 10px rgba(182,255,204,.35);
   }
-  .btn {
-    font-size: 1rem;
-    padding: 12px 16px;
+
+
+  /* Toast notifications */
+  #toastWrap{ position:fixed; top:16px; right:16px; z-index:2000; display:flex; flex-direction:column; gap:8px; pointer-events:none; }
+  .toast{ pointer-events:auto; background:#111; color:#eee; border:1px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:0 6px 20px rgba(0,0,0,.35), 0 0 10px rgba(255,192,203,.25); min-width:240px; max-width:360px; }
+  .toast-title{ font-weight:800; margin-bottom:4px; color:#ffe2e2; }
+  .toast-msg{ font-size:.98rem; }
+  .toast-hide{ display:inline-block; margin-top:6px; border:1px solid var(--border); background:transparent; color:#fff; padding:4px 8px; border-radius:8px; cursor:pointer; }
+
+
+  /* Initiator open-challenge count badge */
+  .badge-count{
+    position:absolute; top:-6px; right:-6px;
+    background:#ffe2e2; color:#000;
+    border:1px solid var(--border);
+    border-radius:999px; padding:2px 7px;
+    font-weight:900; font-size:.78rem;
+    box-shadow:0 0 10px rgba(255,226,226,.35);
+    min-width:22px; text-align:center;
   }
-  nav button {
-    font-size: 1rem;
-    padding: 14px;
+
+
+  /* Brand link wraps logo + title; replaces Home button */
+  .brand-link{ display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; cursor:pointer; }
+  .brand-link:focus-visible{ outline:2px solid #fff; outline-offset:4px; }
+  #homeBtn{ display:none !important; }
+
+
+  /* Ensure brand link reliably receives clicks */
+  .brand-link .logo, .brand-link .decadare-title { pointer-events: none; }
+
+
+  /* Prize thumbnails and avatar chips */
+  .opt-media{ display:flex; align-items:center; gap:10px; }
+  .opt-media img{ width:46px; height:46px; border-radius:10px; object-fit:cover; border:1px solid var(--border); }
+  .prize-thumb{ width:54px; height:54px; border-radius:12px; object-fit:cover; border:1px solid var(--border); margin-right:8px; }
+  .avatar-sm{ width:26px; height:26px; border-radius:50%; object-fit:cover; border:1px solid #fff; vertical-align:middle; margin-right:6px; }
+
+
+  /* 5x larger image in Review Challenge modal */
+  #sendPrizeImg { width:270px; height:270px; }
+
+
+  /* Opponent update badge on Active list */
+  .badge-update{
+    display:inline-block;
+    margin-right:8px;
+    background:#fff3cd;
+    color:#000;
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:2px 8px;
+    font-weight:800;
+    font-size:.78rem;
+    text-transform:uppercase;
   }
-  .card {
-    padding: 20px;
-    font-size: 1rem;
-  }
-  textarea,.input,select {
-    font-size: 1rem;
-    padding: 12px;
-  }
-}
+
+
+  /* Opponent selector */
+  .op-row{ display:flex; align-items:center; gap:10px; padding:8px; border:1px solid var(--border); border-radius:12px; background:#0b0b0b; margin:6px 0; }
+  .op-row:hover{ background:#141414; }
+  .op-chip{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:#120606; cursor:pointer; margin:4px; }
+  .op-chip img, .op-row img{ width:28px; height:28px; border-radius:50%; object-fit:cover; border:1px solid #fff; }
+  .op-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+  #opponentSelected{ margin-top:10px; padding:8px; border:1px dashed var(--border); border-radius:10px; background:#0b0b0b; }
+  #opponentSelected .avatar-sm{ width:24px; height:24px; }
+
+
+  /* Suggestions as dropdown popover instead of inline list */
+  #opponentSuggestions{ display:none !important; }
+  .suggestions-pop{ position:absolute; z-index:2500; background:#0b0b0b; color:#eee;
+    border:1px solid var(--border); border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.45);
+    max-height:260px; overflow:auto; width:320px; }
+  .suggestions-pop .op-row{ margin:0; border-left:0; border-right:0; border-radius:0; }
+  .suggestions-pop .op-row + .op-row{ border-top:1px solid rgba(255,255,255,.08); }
 
 </style>
-
-
 </head>
 <body>
 
-<div class="header-container" style="text-align:center; margin:40px auto; position:relative; display:inline-block; z-index:0;">
-  <!-- Glowing logo background -->
-  <div class="logo" style="position:relative; z-index:0;">
-    <div class="circle left"></div>
-    <div class="circle right"></div>
-    <div class="spark"></div>
+<!-- Header -->
+<div class="header-bar">
+  <div class="header-left"><a id="brandLink" href="#" class="brand-link" onclick="navTo(\'home\'); return false;">
+    <div class="logo">
+      <div class="circle left"></div>
+      <div class="circle right"></div>
+      <div class="spark"></div>
+    </div>
+    <div class="decadare-title">Decadare</div></a>
   </div>
 
-  <!-- Foreground Header text -->
-  <header class="decadare-title" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); z-index:2; font-family:'Great Vibes', cursive; font-size:4rem; color:#fff;"> Decadare
- </header>
-</div>
-</body>
-
-  <!-- Avatar absolute top-left -->
-  <img 
-    id="navAvatar" 
-    src="https://via.placeholder.com/400" 
-    alt="Avatar"
-    style="position:absolute; top:20px; left:20px; height:200px; width:200px; border-radius:50%; cursor:pointer; z-index 1000;" 
-    onclick="navTo('account')"
-  >
-
-  <!-- Centered Home button -->
-  <div style="text-align:center; margin:12px 0;">
+  <div class="header-center">
     <button id="homeBtn" class="btn btn-soft" onclick="navTo('home')">Home</button>
   </div>
 
-  <main>
-
-  </header>
-<!-- In your <head> section, inside <style> add this -->
-
-
+  <div class="header-right">
+    <img id="navAvatar" src="https://via.placeholder.com/100" alt="Avatar" onclick="openAccount()"/ title="Account" role="button" tabindex="0">
+    <button id="backBtn" class="btn btn-soft" onclick="goBack()" style="display:none">&#8592; Back</button>
+  </div>
+</div>
 
 <main>
+
+  <!-- Home -->
   <section id="home" class="active">
-  <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-    <h2>Turn moments into meaningful dares!</h2>
-    <button class="btn" onclick="openAccount()">Account</button>
-    <button class="btn" onclick="navTo('create')">Create</button>
-    <button class="btn" onclick="navTo('active')">Active</button>
-    <button class="btn" onclick="navTo('wins')">Wins</button>
-    <button class="btn" onclick="navTo('proof')">Proof</button>
-    <button class="btn" onclick="navTo('history')">History</button>
+    <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+      <h2>Connect with dares and challenges</h2>
+      <button class="btn" onclick="navTo('create')">Create</button>
+      <button class="btn badge-parent" onclick="navTo('active')" id="determineBtn">Determine Winner<span id="initiatorCountBadge" class="badge-count" style="display:none">0</span></button>
+      <button class="btn badge-parent" onclick="navTo('wins')" id="winsBtn">Wins<span id="winsBadge" class="badge" style="display:none">New</span></button>
+      <button class="btn" onclick="navTo('history')">History</button>
+    </div>
+  
+    <div class="card">
+      <h3>Active Challenges</h3>
+      <div id="homeActivePreview"></div>
+      <button class="btn btn-soft" onclick="navTo('active')">View All</button>
+    </div>
+  
+  <div class="card">
+    <h3>Simulator</h3>
+    <div class="row" style="margin-top:8px;">
+      <button class="btn" onclick="simNotify('received')">Sim: New Challenge</button>
+      <button class="btn" onclick="simNotify('win')">Sim: You Won</button>
+      <button class="btn" onclick="simNotify('ended')">Sim: Challenge Ended</button>
+    </div>
   </div>
 </section>
 
+  <!-- Create: Split flow -->
   <section id="create">
-    <div class="card">
-      <h2>Create Challenge</h2>
-      <label>Description (Decency/Decadence)</label>
-      <textarea id="challengeDescription" placeholder="Selected challenge will appear here..."></textarea>
-      <div style="margin-top:8px;text-align:left">
-        <label style="display:flex;align-items:center;gap:6px;font-weight:600;color:#5a2a2a;">
-          <input type="checkbox" id="requiresResponse" /> Response after acceptance required
-        </label>
+    <!-- Step 1 -->
+    <div id="createStep1">
+      <div class="card">
+        <h2>Create Challenge</h2>
+        <label>Description</label>
+        <textarea id="challengeDescription" placeholder="Type your own challenge or pick from lists below
+Example 1 Tonight I challenge you. First to solve a puzzle in 5 minutes wins. Loser gives a shoulder rub for 10 minutes.
+Example 2 Best of 3 at ping pong. Winner picks the movie and the loser brings snacks.
+Example 3 Eye contact for 2 minutes without laughing. Breaker cooks breakfast tomorrow.
+Example 4 Step count face off. Whoever has more steps by 9 pm chooses tomorrow's date idea.
+Example 5 Silent dance dare in the kitchen. If you blush first you owe a short poem."></textarea>
       </div>
-      <div class="row" style="margin-top:8px">
-        <label>Timer 
+
+      <div class="card">
+        <h3>Decency</h3>
+        <div class="dropdown">
+          <div class="dropdown-header" onclick="toggleDD(this)">Daily Habits</div>
+          <div class="dropdown-content" id="Daily Habits"></div>
+        </div>
+        <div class="dropdown">
+          <div class="dropdown-header" onclick="toggleDD(this)">Lifestyle Fun</div>
+          <div class="dropdown-content" id="Lifestyle Fun"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Decadence</h3>
+        <div class="dropdown">
+          <div class="dropdown-header" onclick="toggleDD(this)">Playful Intimacy</div>
+          <div class="dropdown-content" id="Playful Intimacy"></div>
+        </div>
+        <div class="dropdown">
+          <div class="dropdown-header" onclick="toggleDD(this)">Romance Boosters</div>
+          <div class="dropdown-content" id="Romance Boosters"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <button class="btn btn-soft" onclick="navTo('home')">Cancel</button>
+          <button class="btn" onclick="goToStep2()">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="createStep2" style="display:none">
+      <div class="card">
+        <h2>Rewards</h2>
+        <label>Prize or Stakes</label>
+        <input class="input" type="text" id="prizeStakes" placeholder="Select or type prize/stakes" />
+
+        <div class="dropdown">
+          <div class="dropdown-header" onclick="toggleDD(this)">Stakes
+    <div class="card">
+      <h3>Confirm Challenge</h3>
+      <div class="row" style="width:100%;">
+        <div style="flex:1;min-width:220px;text-align:left;">
+          <label>Timer</label>
           <select class="input" id="challengeTimer">
-            <option value="30">30 seconds</option>
             <option value="60">1 minute</option>
             <option value="300">5 minutes</option>
             <option value="600">10 minutes</option>
-            <option value="1200">20 minutes</option>
             <option value="1800">30 minutes</option>
             <option value="3600">1 hour</option>
-            <option value="7200">2 hours</option>
             <option value="86400">1 day</option>
           </select>
-        </label>
-        <label>Rules (optional): <input class="input" type="text" id="challengeRules" placeholder="Any special rules..."/></label>
-        <label>Series</label>
-        <select class="input" id="seriesSelect">
-          <option value="">Single Game</option>
-          <option value="bo3">Best of 3 (2 out of 3)</option>
-          <option value="bo7">Best of 7 (4 out of 7)</option>
-        </select>
+        </div>
+        <div style="flex:1;min-width:220px;text-align:left;">
+          <label>Series</label>
+          <select class="input" id="seriesSelect">
+            <option value="">Single Game</option>
+            <option value="bo3">Best of 3</option>
+            <option value="bo7">Best of 7</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:10px;text-align:left;">
+        <label>Rules (optional)</label>
+        <input class="input" type="text" id="challengeRules" placeholder="Any special rules"/>
+      </div>
+      <div style="margin-top:10px;text-align:left;">
+        <label><input type="checkbox" id="requiresResponse"> Response Required</label>
+      </div>
+      <div class="row" style="margin-top:16px;">
+        <button class="btn btn-soft" onclick="backToStep1()">Back</button>
+        <button class="btn" onclick="confirmChallenge()">Confirm Challenge</button>
+      </div>
+    </div>
+        </div>
+          <div class="dropdown-content" id="stakesList"></div>
+        </div>
+        <div class="dropdown">
+          <div class="dropdown-header" onclick="toggleDD(this)">Prizes</div>
+          <div class="dropdown-content" id="prizesList"></div>
+        </div>
+        <div class="dropdown">
+          <div class="dropdown-header" onclick="toggleDD(this)">Company Prizes</div>
+          <div class="dropdown-content" id="companyPrizes"><div style="font-size:.9rem; opacity:.85; margin-top:6px;">If you also select a company prize, your uploaded image will override it.</div>
+      </div>
+</div>
+        </div>
+      </div>
+
+      
+    <div class="card">
+      <h2>Select Player to Challenge</h2>
+      <div style="text-align:left;">
+        <label for="opponentSearch">Search</label>
+        <input id="opponentSearch" class="input" type="text" placeholder="Search name, @handle, phone, or email">
+        <div style="margin-top:8px;"><strong>Recents</strong></div>
+        <div id="opponentRecents" class="op-actions"></div>
+        <div style="margin-top:8px;"><strong>Suggestions</strong></div>
+        <div id="opponentSuggestions"></div>
+        <div class="op-actions" style="margin-top:10px;">
+          <button class="btn btn-soft" type="button" onclick="clearOpponent()">Clear selection</button>
+        </div>
+        <div id="opponentSelected" style="display:none;"></div>
       </div>
     </div>
 
-    <div class="card">
-      <h3>Decency</h3>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Daily Habits</div><div class="dropdown-content" id="Daily Habits"></div></div>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Lifestyle Fun</div><div class="dropdown-content" id="Lifestyle Fun"></div></div>
-    </div>
+<div class="card">
+        <h3>Confirm Challenge</h3>
+        <div class="row" style="width:100%;">
+          <div style="flex:1; min-width:220px; text-align:left;">
+            <label>Timer</label>
+            <select class="input" id="challengeTimer">
+              <option value="30">30 seconds</option>
+              <option value="60">1 minute</option>
+              <option value="300">5 minutes</option>
+              <option value="600">10 minutes</option>
+              <option value="1200">20 minutes</option>
+              <option value="1800">30 minutes</option>
+              <option value="3600">1 hour</option>
+              <option value="7200">2 hours</option>
+              <option value="86400">1 day</option>
+            </select>
+          </div>
+          <div style="flex:1; min-width:220px; text-align:left;">
+            <label>Series</label>
+            <select class="input" id="seriesSelect">
+              <option value="">Single Game</option>
+              <option value="bo3">Best of 3</option>
+              <option value="bo7">Best of 7</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:10px; text-align:left;">
+          <label>Rules (optional)</label>
+          <input class="input" type="text" id="challengeRules" placeholder="Any special rules"/>
+        </div>
+        
+        <div style="margin-top:10px; text-align:left;">
+          <label><input type="checkbox" id="requiresResponse"> Response Required</label>
+        </div>
+      <div style="margin-top:14px; text-align:left;">
+        <label>Optional Prize Image</label>
+        <input class="input" type="file" id="prizeImageUpload" accept="image/*">
+        <div style="margin-top:8px; display:flex; align-items:center; gap:8px;">
+          <img id="prizePreview" class="prize-thumb" style="display:none" alt="Prize preview">
+          <button class="btn btn-soft" type="button" id="clearPrizeImg">Remove Image</button>
+        </div>
+        <div style="font-size:.9rem; opacity:.85; margin-top:6px;">If you also select a company prize, your uploaded image will override it.</div>
+      </div>
 
-    <div class="card">
-      <h3>Decadence</h3>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Playful Intimacy</div><div class="dropdown-content" id="Playful Intimacy"></div></div>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Romance Boosters</div><div class="dropdown-content" id="Romance Boosters"></div></div>
+        <div class="row" style="margin-top:16px;">
+          <button class="btn btn-soft" onclick="backToStep1()">Back</button>
+          <button class="btn" onclick="confirmChallenge()">Confirm Challenge</button>
+        </div>
+      </div>
     </div>
-
-    <div class="card">
-      <h3>Rewards</h3>
-      <label>Prize/Stakes (manual)</label>
-      <input class="input" type="text" id="prizeStakes" placeholder="Select or type prize/stakes" />
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Stakes</div><div class="dropdown-content" id="stakesList"></div></div>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Prizes</div><div class="dropdown-content" id="prizesList"></div></div>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Company Prizes</div><div class="dropdown-content" id="companyPrizes"></div></div>
-    </div>
-
-    <div class="card"><button class="btn" onclick="confirmChallenge()">Confirm Challenge</button></div>
   </section>
 
+  <!-- Confirm preview -->
   <section id="confirm">
     <div class="card">
       <h2>Challenge Details</h2>
@@ -313,71 +496,111 @@
       <p>Prize/Stakes: <span id="detailStake"></span></p>
       <p>Rules: <span id="detailRules"></span></p>
       <p>Series: <span id="detailSeries"></span></p>
-      <p>Response Required: <span id="detailRequiresResponse"></span></p>
-            <p>Time left: <span class="timer" id="detailTimer"></span></p>
-      <div class="row">
+      <p>Response Required: <span id="detailRequiresResponse">No</span></p>
+      <p>Time left: <span class="timer" id="detailTimer"></span></p>
+      <p><img id="detailPrizeImg" class="prize-thumb" style="display:none" alt="Prize image"></p><div class="row">
         <button class="btn" onclick="sendChallenge()">Send to Opponent</button>
         <button class="btn btn-soft" onclick="navTo('create')">Back</button>
       </div>
     </div>
   </section>
 
+  <!-- Active -->
   <section id="active">
     <h2>Active Challenges</h2>
     <div id="activeList"></div>
   </section>
 
+  <!-- Wins -->
   <section id="wins">
     <h2>My Wins</h2>
     <div id="winsList"></div>
   </section>
 
-  <section id="proof">
-    <h2>My Proof (Losses)</h2>
-    <div id="proofList"></div>
-  </section>
-
+  <!-- History -->
   <section id="history">
     <h2>History</h2>
     <div id="historyList"></div>
   </section>
 
+  <!-- Account -->
+  <section id="account">
+    <div class="card">
+      <h2>Account Information</h2>
+      <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:2px solid #999;margin-bottom:12px">
+      <input type="file" id="avatarUpload" accept="image/*">
 
-<section id="account">
-  <div class="card">
-    <h2>Account Information</h2>
-    <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:2px solid #999;margin-bottom:12px">
-    <input type="file" id="avatarUpload" accept="image/*">
-    <input type="text" id="username" placeholder="Name">
-    <input type="email" id="useremail" placeholder="Email">
-    <input type="tel" id="userphone" placeholder="Phone">
-    <div style="margin-top:10px;">
-      <button class="btn" onclick="saveAccount()">Save</button>
-      <button class="btn btn-soft" onclick="logout()">Logout</button>
+      <input type="text" id="username" placeholder="Name" class="account-field">
+      <div id="usernameMsg" class="field-msg"></div><input type="email" id="useremail" placeholder="Email" class="account-field">
+      <div id="useremailMsg" class="field-msg"></div><input type="tel" id="userphone" placeholder="Phone" class="account-field">
+
+      <div id="userphoneMsg" class="field-msg"></div><input type="password" id="userpassword" placeholder="Change Password" class="account-field">
+      <div id="userpasswordMsg" class="field-msg"></div><label style="display:block;margin-top:10px;"><input type="checkbox" id="twoFactor"> Enable Two-Factor Authentication</label>
+
+      <div style="margin-top:10px; text-align:left;">
+        <label>Linked Accounts</label>
+        <select id="linkedAccounts" class="input">
+          <option>None</option>
+          <option>Google</option>
+          <option>Apple</option>
+          <option>Facebook</option>
+        </select>
+      </div>
+
+      <div style="margin-top:10px; text-align:left;">
+        <label>Membership Plan</label>
+        <select id="membershipPlan" class="input">
+          <option>Free</option>
+          <option>Premium</option>
+        </select>
+      </div>
+
+      <input type="text" id="billingInfo" placeholder="Billing Info">
+      <textarea id="transactionHistory" placeholder="Transaction History" readonly></textarea>
+
+      <label style="display:block;margin-top:10px;"><input type="checkbox" id="notifications"> Enable Notifications</label>
+
+      <div style="margin-top:10px; text-align:left;">
+        <label>Privacy Settings</label>
+        <select id="privacySettings" class="input">
+          <option>Public</option>
+          <option>Friends Only</option>
+          <option>Private</option>
+        </select>
+      </div>
+
+      <div style="margin-top:20px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
+        <button class="btn btn-soft" onclick="alert('Support coming soon')">Help / Support</button>
+        <button class="btn btn-soft" onclick="alert('Terms coming soon')">Terms & Conditions</button>
+        <button class="btn btn-soft" onclick="alert('Privacy coming soon')">Privacy Policy</button>
+      </div>
+
+      <div style="margin-top:10px;">
+        <button class="btn" onclick="saveAccount()">Save</button>
+        <button class="btn btn-soft" onclick="logout()">Logout</button>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
-<section id="signin">
-  <div class="card">
-    <h2>Sign In</h2>
-    <p><input class="input" type="email" id="signinEmail" placeholder="Email"></p>
-    <p><input class="input" type="password" id="signinPassword" placeholder="Password"></p>
-    <div class="row" style="margin-top:10px;">
-      <button class="btn" onclick="signIn()">Sign In</button>
-      <button class="btn btn-soft" onclick="openAccount()">Create Account</button>
+  <!-- Signin -->
+  <section id="signin">
+    <div class="card">
+      <h2>Sign In</h2>
+      <p><input class="input" type="email" id="signinEmail" placeholder="Email"></p>
+      <p><input class="input" type="password" id="signinPassword" placeholder="Password"></p>
+      <div class="row" style="margin-top:10px;">
+        <button class="btn" onclick="signIn()">Sign In</button>
+        </div>
     </div>
-  </div>
-</section>
+  </section>
 
 </main>
 
 <!-- Modals -->
 <div id="winModal" class="modal-backdrop">
   <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeWinModal(event)">×</button>
-    <h2>Challenge Won!</h2>
+    <button class="btn btn-soft" style="position:absolute; top:12px; right:12px;" onclick="closeWinModal(event)">×</button>
+    <h2>Challenge Won</h2>
     <p id="winDetails"></p>
     <h3 style="color:var(--red-dark)">Prize / Stake</h3>
     <p id="winPrize"></p>
@@ -386,8 +609,8 @@
 
 <div id="receiveModal" class="modal-backdrop">
   <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeReceiveModal(event)">×</button>
-    <h2>New Challenge Received!</h2>
+    <button class="btn btn-soft" style="position:absolute; top:12px; right:12px;" onclick="closeReceiveModal(event)">×</button>
+    <h2>New Challenge Received</h2>
     <p id="receiveDesc"></p>
     <p><strong>Prize / Stakes:</strong> <span id="receivePrize"></span></p>
     <p><strong>Rules:</strong> <span id="receiveRules"></span></p>
@@ -401,7 +624,7 @@
 
 <div id="disclaimerModal" class="modal-backdrop">
   <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeDisclaimer(event)">×</button>
+    <button class="btn btn-soft" style="position:absolute; top:12px; right:12px;" onclick="closeDisclaimer(event)">×</button>
     <h2>Confirm Winner</h2>
     <p id="disclaimerText"></p>
     <div class="row" style="margin-top:12px">
@@ -411,9 +634,21 @@
   </div>
 </div>
 
+<div id="sendDisclaimerModal" class="modal-backdrop">
+  <div class="card modal-card">
+    <h2>Review Challenge</h2>
+    <div id="sendDisclaimerText" style="margin:10px 0; text-align:left;"></div>
+    <p><img id="sendPrizeImg" class="prize-thumb" style="display:none" alt="Prize image"></p>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" onclick="confirmSendYes()">Yes, Send</button>
+      <button class="btn btn-soft" onclick="confirmSendNo()">No, Go Back</button>
+    </div>
+  </div>
+</div>
+
 <div id="winsDetailModal" class="modal-backdrop">
   <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeWinsDetail(event)">×</button>
+    <button class="btn btn-soft" style="position:absolute; top:12px; right:12px;" onclick="closeWinsDetail(event)">×</button>
     <h2>Win Details</h2>
     <p id="winsDetailDesc"></p>
     <p><strong>Prize/Stakes:</strong> <span id="winsDetailStake"></span></p>
@@ -423,21 +658,9 @@
   </div>
 </div>
 
-<div id="proofDetailModal" class="modal-backdrop">
-  <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeProofDetail(event)">×</button>
-    <h2>Loss Details</h2>
-    <p id="proofDetailDesc"></p>
-    <p><strong>Prize/Stakes:</strong> <span id="proofDetailStake"></span></p>
-    <p><strong>Rules:</strong> <span id="proofDetailRules"></span></p>
-    <p><strong>Series:</strong> <span id="proofDetailSeries"></span></p>
-    <p><strong>Final Score:</strong> <span id="proofDetailScore"></span></p>
-  </div>
-</div>
-
 <div id="historyDetailModal" class="modal-backdrop">
   <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeHistoryDetail(event)">×</button>
+    <button class="btn btn-soft" style="position:absolute; top:12px; right:12px;" onclick="closeHistoryDetail(event)">×</button>
     <h2>History Details</h2>
     <p id="historyDetailDesc"></p>
     <p><strong>Prize/Stakes:</strong> <span id="historyDetailStake"></span></p>
@@ -449,168 +672,204 @@
 </div>
 
 <script>
-// ======= State & Setup =======
+// ===== State =====
 let activeChallenges = JSON.parse(localStorage.getItem("activeChallenges") || "[]");
 let historyChallenges = JSON.parse(localStorage.getItem("historyChallenges") || "[]");
 let wins = JSON.parse(localStorage.getItem("wins") || "[]");
-let proofs = JSON.parse(localStorage.getItem("proofs") || "[]");
-let isInitiator = true; // testing role; only initiator can edit scores / declare
+let pageStack = [];
+let isInitiator = true; // Preserve capability
 
-const descriptionBox = document.getElementById("challengeDescription");
-const rulesBox = document.getElementById("challengeRules");
-const roleChip = document.getElementById("roleChip");
+function getUser(){ try{ return JSON.parse(localStorage.getItem('decadareUser')||"{}"); }catch(e){ return {}; } }
+function setUser(obj){ localStorage.setItem('decadareUser', JSON.stringify(obj||{})); }
 
-// Notifications permission
-document.addEventListener("DOMContentLoaded", ()=>{
-  if ("Notification" in window) {
-    try{ Notification.requestPermission(); }catch(e){}
-  }
-});
-
-// ======= Router =======
-
+// ===== Router =====
 function navTo(pageId){
-  document.querySelectorAll("main section").forEach(sec=>sec.classList.remove("active"));
-  const t=document.getElementById(pageId);
-  if(t){ t.classList.add("active"); }
-  const backBtn=document.getElementById('backBtn');
-  if(backBtn){ backBtn.style.display = (pageId==='home'||pageId==='signin') ? 'none' : 'inline-block'; }
-  if(pageId==='account' && typeof loadAccount==='function'){ loadAccount(); }
+  const current = document.querySelector('main section.active');
+  if(current && current.id !== pageId){ pageStack.push(current.id); current.classList.remove('active'); }
+  document.querySelectorAll('main section').forEach(sec=>sec.classList.remove('active'));
+  const target = document.getElementById(pageId) || document.getElementById('home');
+  if(target) target.classList.add('active');
+  const backBtn = document.getElementById('backBtn');
+  if(backBtn) backBtn.style.display = (pageId==='home'||pageId==='signin') ? 'none' : 'inline-block';
+  if(pageId==='account'){ loadAccount(); }
+}
+function goBack(){
+  if(pageStack.length>0){
+    const prev = pageStack.pop();
+    document.querySelectorAll('main section').forEach(sec=>sec.classList.remove('active'));
+    const target = document.getElementById(prev) || document.getElementById('home');
+    target.classList.add('active');
+    const backBtn = document.getElementById('backBtn');
+    if(backBtn) backBtn.style.display = (target.id==='home'||target.id==='signin') ? 'none' : 'inline-block';
+  } else {
+    navTo('home');
+  }
 }
 
+// ===== UI helpers =====
 function toggleDD(h){ h.parentElement.classList.toggle("expanded"); }
-function toggleRole(){ isInitiator = !isInitiator; roleChip.textContent = isInitiator ? "Initiator" : "Opponent"; renderAll(); }
-
-// ======= Options helper =======
 function addOption(containerId, text, targetId){
-  const container = document.getElementById(containerId);
-  if(!container) return;
-  const row = document.createElement("div");
-  row.className="option";
+  const container = document.getElementById(containerId); if(!container) return;
+  const row = document.createElement("div"); row.className="option";
   row.innerHTML = "<span>"+text+"</span>";
-  const btn = document.createElement("button");
-  btn.textContent = "Use";
+  const btn = document.createElement("button"); btn.textContent="Use";
   btn.onclick = () => {
     const target = document.getElementById(targetId);
-    if(target.tagName.toLowerCase()==="textarea" || target.tagName.toLowerCase()==="input"){
-      target.value = text;
-    } else {
-      target.textContent = text;
-    }
-    const dd = container.closest(".dropdown");
-    if(dd) dd.classList.remove("expanded");
+    if(!target) return;
+    if(target.tagName.toLowerCase()==='textarea' || target.tagName.toLowerCase()==='input'){ target.value = text; }
+    else { target.textContent = text; }
+    const dd = container.closest(".dropdown"); if(dd) dd.classList.remove("expanded");
   };
-  row.appendChild(btn);
-  container.appendChild(row);
+  row.appendChild(btn); container.appendChild(row);
 }
 
-// ======= Lists (25 each where required) =======
+// ===== Lists =====
 const dailyHabits = ["Drink 8 glasses of water today","Go for a 20-minute walk together","Cook a healthy dinner at home","Journal one gratitude each","Meditate for 10 minutes together","Swap phone-free time for 1 hour","Stretch before bed","Share your favorite song of the day","Compliment each other 3 times","Take turns giving each other a short massage","Read aloud 2 pages from a book","Share a funny memory at dinner","Do 20 squats or pushups together","Plan tomorrow’s meals together","Share one new thing you learned today","Make the bed together","Drink tea instead of coffee for one round","Pack lunch for each other","Write a sticky note of encouragement","Do a 5-minute breathing exercise together","Declutter one drawer or shelf together","Dance to one full song","Share a 2-minute eye contact silence","Call or text one family member together","Give each other a thank you at bedtime"];
-const lifestyleFun = ["Watch a new movie tonight","Play a board game or card game","Try a new recipe","Explore a new café or restaurant","Take a selfie adventure outdoors","Plan your dream vacation together","Sing karaoke at home","Do a random act of kindness as a pair","Try drawing portraits of each other","Bake cookies or cake together","Learn a dance on YouTube","Go stargazing outside","Write a short poem for each other","Try a yes day for small requests","Go on a late-night drive","Build a pillow fort","Try a puzzle or Lego set","Visit a local landmark","Do a themed dinner (Italian night, taco night)","Play a trivia quiz against each other","Listen to a podcast together","Watch sunrise or sunset","Share childhood photos and stories","Write a silly short story together","Make a playlist for each other"];
-const playfulIntimacy = ["Kiss for 30 seconds without stopping","Hold hands for an entire walk","Whisper three fantasies into each other’s ear","Write each other a flirty note","Share a slow dance in the living room","Give a one-minute shoulder rub","Touch each other without speaking for 2 minutes","Send a playful text while in the same room","Blindfold partner and guide them around the room","Try a new cuddle position","Roleplay as strangers meeting for the first time","Take a shower together","Tell each other a secret desire","Draw a heart on your partner’s hand","Exchange top three turn-ons","Do a lap-sit challenge for one song","Try feeding each other dessert","Tickle each other for 1 minute","Share favorite body compliment","Dance close with eyes closed","Recreate your first kiss","Create a secret couple handshake","Share your most attractive outfit tonight","Practice kissing in different ways","Play a truth or dare mini round"];
-const romanceBoosters = ["Light candles during dinner","Write each other a love letter","Plan a surprise date night","Recreate your first date meal","Say I love you five times today","Share why you first fell for each other","Give partner your jacket or sweater","Watch wedding/engagement videos together","Plan a weekend getaway idea","Leave a hidden love note to find later","Play five compliments back and forth","Hold hands under the table for 10 minutes","Cook breakfast in bed","Write names with a heart on foggy mirror","Share a romantic movie scene reenactment","Play favorite couple’s song and dance","Take a photo together in a new place","Share your dream anniversary trip","Make a bucket list of 10 couple goals","Tell each other one thing you’re proud of","Give each other foot rubs","Take turns saying You’re mine playfully","Plan a surprise weekend breakfast","Look into each other’s eyes silently for 3 minutes","Share one wish for the relationship"];
-const stakes = ["Do the dishes","Cook dinner","Pay for dessert","Foot massage 10 minutes","Winner chooses next movie","Loser plans tomorrow’s breakfast","Clean the living room","Loser sings a song of winner’s choice","Winner picks date night location","Loser makes bed for a week","Winner controls TV remote","Loser buys snacks","Take trash out for 3 days","Winner gets car music control","Loser compliments winner 5 times","Winner gets a coffee bought","Loser does one chore card chosen at random","Winner picks bedtime story","Loser must write a haiku for winner","Winner gets dessert first","Loser vacuums tomorrow","Winner gets breakfast served","Loser gives winner 5 back pats","Winner controls playlist","Loser sets up candles tonight"];
+const lifestyleFun = ["Watch a new movie tonight","Play a board game or card game","Try a new recipe","Explore a new café or restaurant","Take a selfie adventure outdoors","Plan your dream vacation together","Sing karaoke at home","Do a random act of kindness as a pair","Try drawing portraits of each other","Bake cookies or cake together","Learn a dance on YouTube","Go stargazing outside","Write a short poem for each other","Try a yes day for small requests","Go on a late-night drive","Build a pillow fort","Try a puzzle or Lego set","Visit a local landmark","Do a themed dinner","Play a trivia quiz against each other","Listen to a podcast together","Watch sunrise or sunset","Share childhood photos and stories","Write a silly short story together","Make a playlist for each other"];
+const playfulIntimacy = ["Kiss for 30 seconds without stopping","Hold hands for an entire walk","Whisper three fantasies","Write each other a flirty note","Share a slow dance","Give a one-minute shoulder rub","Touch each other without speaking for 2 minutes","Send a playful text","Blindfold partner and guide them","Try a new cuddle position","Roleplay as strangers","Take a shower together","Tell each other a secret desire","Draw a heart on your partner’s hand","Exchange top three turn-ons","Do a lap-sit challenge for one song","Try feeding each other dessert","Tickle each other for 1 minute","Share favorite body compliment","Dance close with eyes closed","Recreate your first kiss","Create a secret couple handshake","Share your most attractive outfit tonight","Practice kissing in different ways","Play a truth or dare mini round"];
+const romanceBoosters = ["Light candles during dinner","Write each other a love letter","Plan a surprise date night","Recreate your first date meal","Say I love you five times","Share why you first fell for each other","Give partner your jacket","Watch wedding or engagement videos","Plan a weekend getaway idea","Leave a hidden love note","Play five compliments back and forth","Hold hands under the table","Cook breakfast in bed","Write names with a heart on foggy mirror","Share a romantic movie scene","Play favorite couple’s song","Take a photo together in a new place","Share your dream anniversary trip","Make a bucket list of couple goals","Tell each other one thing you’re proud of","Give each other foot rubs","Take turns saying You’re mine playfully","Plan a surprise weekend breakfast","Look into each other’s eyes silently","Share one wish for the relationship"];
+const stakes = ["Do the dishes","Cook dinner","Pay for dessert","Foot massage 10 minutes","Winner chooses next movie","Loser plans breakfast","Clean the living room","Loser sings a song","Winner picks date night","Loser makes bed for a week","Winner controls TV remote","Loser buys snacks","Take trash out for 3 days","Winner gets car music control","Loser compliments winner 5 times","Winner gets a coffee bought","Loser does one chore card","Winner picks bedtime story","Loser writes a haiku","Winner gets dessert first","Loser vacuums tomorrow","Winner gets breakfast served","Loser gives 5 back pats","Winner controls playlist","Loser sets up candles tonight"];
 const prizes = ["Candlelit dinner","A box of chocolates","A handwritten love poem","Surprise breakfast in bed","A flower bouquet","A massage coupon","Romantic playlist made","A framed photo of both","A love letter","Bubble bath prepared","Picnic setup","Homemade dessert","Breakfast cooked by partner","Evening of no chores","Small wrapped gift","Spa night at home","Personalized coupon book","Favorite drink delivered","Winner gets a serenade","A surprise coffee date","Outfit chosen by partner","Favorite meal prepared","Scented candle gift","A kiss marathon challenge","Romantic note hidden somewhere"];
 const companyPrizes = ["Coffee Date from Local Café","Spa Voucher by BlissCo","Dinner for Two by Bistro Partners","Movie Night Tickets by CineWorld","Dessert Box by SweetTreats","Flower Delivery by Bloom Alley","Wine Tasting Pass by Vino Club","Brunch for Two by SunnySide","Picnic Kit by Outdoor Co","Fitness Class Pass by FitTogether"];
 
-// Hydrate lists
-dailyHabits.forEach(t=>addOption("Daily Habits",t,"challengeDescription"));
-lifestyleFun.forEach(t=>addOption("Lifestyle Fun",t,"challengeDescription"));
-playfulIntimacy.forEach(t=>addOption("Playful Intimacy",t,"challengeDescription"));
-romanceBoosters.forEach(t=>addOption("Romance Boosters",t,"challengeDescription"));
-stakes.forEach(t=>addOption("stakesList",t,"prizeStakes"));
-prizes.forEach(t=>addOption("prizesList",t,"prizeStakes"));
-companyPrizes.forEach(t=>addOption("companyPrizes",t,"prizeStakes"));
+// Hydrate lists on load
+document.addEventListener("DOMContentLoaded", ()=>{
+  dailyHabits.forEach(t=>addOption("Daily Habits",t,"challengeDescription"));
+  lifestyleFun.forEach(t=>addOption("Lifestyle Fun",t,"challengeDescription"));
+  playfulIntimacy.forEach(t=>addOption("Playful Intimacy",t,"challengeDescription"));
+  romanceBoosters.forEach(t=>addOption("Romance Boosters",t,"challengeDescription"));
+  stakes.forEach(t=>addOption("stakesList",t,"prizeStakes"));
+  prizes.forEach(t=>addOption("prizesList",t,"prizeStakes"));
+  companyPrizes.forEach(t=>addOption("companyPrizes",t,"prizeStakes"));
+});
 
-// ======= Confirm view with live detail timer =======
+// ===== Create split flow =====
+function goToStep2(){
+  const desc = (document.getElementById("challengeDescription").value||"").trim();
+  if(!desc){ alert("Please select or type a challenge."); return; }
+  document.getElementById("createStep1").style.display='none';
+  document.getElementById("createStep2").style.display='block';
+}
+function backToStep1(){
+  document.getElementById("createStep2").style.display='none';
+  document.getElementById("createStep1").style.display='block';
+}
+
+// Confirm view and disclaimer
 let pendingChallenge = null;
-let detailTimerId = null;
 
 function confirmChallenge(){
-  const desc = descriptionBox.value.trim();
-  const prizeStakes = document.getElementById("prizeStakes").value.trim();
+  const desc = (document.getElementById("challengeDescription").value||"").trim();
+  const prizeStakes = (document.getElementById("prizeStakes").value||"").trim();
   const series = document.getElementById("seriesSelect").value;
-  if(!desc){ alert("Please select or type a challenge."); return; }
   const secs = parseInt(document.getElementById("challengeTimer").value)||60;
-  const rules = rulesBox.value.trim();
-
-  pendingChallenge = { description: desc, stake: prizeStakes || "None", rules: rules || "", series: series, duration: secs,
+  const rules = (document.getElementById("challengeRules").value||"").trim();
+  const requiresResponse = document.getElementById("requiresResponse").checked;
+  pendingChallenge = {
+    description: desc,
+    stake: prizeStakes || "None",
+    rules: rules || "",
+    series: series,
+    duration: secs,
+    requiresResponse,
     score: {a:0,b:0},
     initiator: "Initiator",
     opponent: "Opponent"
   };
-
   document.getElementById("detailDesc").textContent = desc;
   document.getElementById("detailStake").textContent = pendingChallenge.stake;
   document.getElementById("detailRules").textContent = pendingChallenge.rules || "—";
   document.getElementById("detailSeries").textContent = series===""?"Single":(series==="bo3"?"BEST OF 3":"BEST OF 7");
-  document.getElementById("detailRequiresResponse").textContent = pendingChallenge.requiresResponse ? "Yes — Opponent must reply" : "No";
-
+  document.getElementById("detailRequiresResponse").textContent = requiresResponse ? "Yes" : "No";
   document.getElementById("detailTimer").textContent = secs + "s";
-  navTo("confirm");
+  document.getElementById("sendDisclaimerText").innerHTML = `
+    <p><strong>Description:</strong> ${desc}</p>
+    <p><strong>Prize/Stakes:</strong> ${pendingChallenge.stake}</p>
+    <p><strong>Rules:</strong> ${pendingChallenge.rules || "—"}</p>
+    <p><strong>Series:</strong> ${series===""?"Single":(series==="bo3"?"BEST OF 3":"BEST OF 7")}</p>
+    <p><strong>Response Required:</strong> ${requiresResponse ? "Yes" : "No"}</p>
+    <p><strong>Timer:</strong> ${secs} seconds</p>
+    <p style="margin-top:10px;">This challenge cannot be edited after sending. Send now?</p>
+  `;
+  document.getElementById("sendDisclaimerModal").classList.add("show");
 }
-
-function bindDetailTimer(deadline){
-  clearInterval(detailTimerId);
-  const el=document.getElementById("detailTimer");
-  const tick=()=>{
-    const rem=Math.max(0,Math.floor((deadline-Date.now())/1000));
-    el.textContent=rem+"s";
-    if(rem<=0){ clearInterval(detailTimerId); el.textContent="Expired"; }
-  };
-  tick();
-  detailTimerId=setInterval(tick,1000);
+function confirmSendYes(){
+  document.getElementById("sendDisclaimerModal").classList.remove("show");
+  sendChallenge();
 }
-
+function confirmSendNo(){
+  document.getElementById("sendDisclaimerModal").classList.remove("show");
+  document.getElementById("createStep1").style.display='none';
+  document.getElementById("createStep2").style.display='block';
+}
 function sendChallenge(){
   if(!pendingChallenge) return;
   pendingChallenge.timerStarted=false;
   activeChallenges.push(pendingChallenge);
-  localStorage.setItem("activeChallenges", JSON.stringify(activeChallenges));
-  // Notify opponent of received challenge
+  persist();
   notifyReceived(pendingChallenge);
   pendingChallenge=null;
   renderAll();
   navTo("active");
 }
 
-// ======= Renders =======
+// ===== Renderers =====
 let activeTimers={};
+let previewTimers={};
 
-function renderAll(){
-  renderActive();
-  renderWins();
-  renderProof();
-  renderHistory();
+function renderAll(){ renderActive(); renderWins(); renderHistory(); renderHomeActive(); }
+
+function clearTimers(map){
+  Object.keys(map).forEach(k=>{ try{ clearInterval(map[k]); }catch(e){} });
 }
 
-function card(item,extra){return "<div class='card'><p><strong>"+item.description+"</strong></p><p>"+extra+"</p></div>";}
+function renderHomeActive(){
+  const wrap=document.getElementById("homeActivePreview");
+  if(!wrap) return;
+  wrap.innerHTML="";
+  clearTimers(previewTimers); previewTimers={};
+
+  activeChallenges.slice(0,3).forEach((c,i)=>{
+    const div=document.createElement("div");
+    div.className="card";
+    div.innerHTML = `
+      <p><strong>${c.description}</strong></p>
+      <p>Prize/Stakes: ${c.stake||"—"} | Series: ${c.series===""?"Single":(c.series==="bo3"?"BEST OF 3":"BEST OF 7")}</p>
+      <p>Rules: ${c.rules||"—"}</p>
+      <p>Time left: <span class="timer" id="home-t-${i}"></span></p>
+    `;
+    div.onclick = ()=>{ navTo("active"); };
+    wrap.appendChild(div);
+
+    const elId="home-t-"+i;
+    const tick=()=>{
+      const el=document.getElementById(elId);
+      if(!el) return;
+      if(!c.deadline && c.duration){ c.deadline = Date.now() + c.duration*1000; }
+      const rem=Math.max(0,Math.floor((c.deadline-Date.now())/1000));
+      el.textContent=rem+"s";
+    };
+    tick(); previewTimers[elId]=setInterval(tick,1000);
+  });
+}
 
 function renderWins(){
-  const wrap=document.getElementById("winsList");wrap.innerHTML="";
-  wins.forEach((w,i)=>{
-    const div=document.createElement("div");div.className="card";
+  const wrap=document.getElementById("winsList"); if(!wrap) return;
+  wrap.innerHTML="";
+  wins.forEach(w=>{
+    const div=document.createElement("div"); div.className="card";
     div.innerHTML=`<p><strong>${w.description}</strong></p><p>WIN</p>`;
     div.onclick=()=>showWinsDetail(w);
     wrap.appendChild(div);
   });
 }
 
-function renderProof(){
-  const wrap=document.getElementById("proofList");wrap.innerHTML="";
-  proofs.forEach((p,i)=>{
-    const div=document.createElement("div");div.className="card";
-    div.innerHTML=`<p><strong>${p.description}</strong></p><p>LOSS</p>`;
-    div.onclick=()=>showProofDetail(p);
-    wrap.appendChild(div);
-  });
-}
-
 function renderHistory(){
-  const wrap=document.getElementById("historyList");wrap.innerHTML="";
-  historyChallenges.forEach((h,i)=>{
-    const div=document.createElement("div");div.className="card";
-    let label = h.declined ? "DECLINED" : (h.expired ? "EXPIRED" : "DONE");
+  const wrap=document.getElementById("historyList"); if(!wrap) return;
+  wrap.innerHTML="";
+  historyChallenges.forEach(h=>{
+    const div=document.createElement("div"); div.className="card";
+    let label = h.result ? h.result : (h.declined ? "DECLINED" : (h.expired ? "EXPIRED" : "DONE"));
     div.innerHTML=`<p><strong>${h.description}</strong></p><p>${label}</p>`;
     div.onclick=()=>showHistoryDetail(h);
     wrap.appendChild(div);
@@ -618,20 +877,20 @@ function renderHistory(){
 }
 
 function renderActive(){
-  const wrap=document.getElementById("activeList");wrap.innerHTML="";
-  Object.values(activeTimers).forEach(id=>clearInterval(id));activeTimers={};
+  const wrap=document.getElementById("activeList"); if(!wrap) return;
+  wrap.innerHTML="";
+  clearTimers(activeTimers); activeTimers={};
+
   activeChallenges.forEach((c,i)=>{
-    const div=document.createElement("div");div.className="card";
+    const div=document.createElement("div"); div.className="card";
     const needed = c.series==="bo3"?2:(c.series==="bo7"?4:null);
-    const scoreA=c.score?.a||0;
-    const scoreB=c.score?.b||0;
+    const scoreA=c.score?.a||0; const scoreB=c.score?.b||0;
     const winnerSide = needed ? (scoreA>=needed?'a':(scoreB>=needed?'b':null)) : null;
     const saveDisabled = needed ? (!winnerSide ? "disabled" : "") : "";
     let controls="";
     if(!isInitiator){
       controls = "<p class='chip'>Read-only (Opponent View)</p>";
     } else if(!needed){
-      // Single game
       controls=`<div class="row" style="margin-top:8px">
         <button class="btn" onclick="openDisclaimer(${i},'a')">Declare Winner (Initiator)</button>
         <button class="btn btn-soft" onclick="openDisclaimer(${i},'b')">Declare Winner (Opponent)</button>
@@ -650,46 +909,40 @@ function renderActive(){
       <p>Time left: <span class="timer" id="t-${i}"></span></p>
       <div class="row">
         <span class="chip">Initiator: <span id="sa-${i}">${c.score?.a||0}</span></span>
-        ${isInitiator?`<button class="btn" onclick="bump(${i},'a',1)">+ Initiator</button>
-        <button class="btn btn-soft" onclick="bump(${i},'a',-1)">– Initiator</button>`:""}
+        <button class="btn" onclick="bump(${i},'a',1)">+ Initiator</button>
+        <button class="btn btn-soft" onclick="bump(${i},'a',-1)">– Initiator</button>
         <span class="chip">Opponent: <span id="sb-${i}">${c.score?.b||0}</span></span>
-        ${isInitiator?`<button class="btn" onclick="bump(${i},'b',1)">+ Opponent</button>
-        <button class="btn btn-soft" onclick="bump(${i},'b',-1)">– Opponent</button>`:""}
+        <button class="btn" onclick="bump(${i},'b',1)">+ Opponent</button>
+        <button class="btn btn-soft" onclick="bump(${i},'b',-1)">– Opponent</button>
       </div>
       ${controls}
     `;
     wrap.appendChild(div);
+
+    // timer
     const elId="t-"+i;
     const tick=()=>{
       const el=document.getElementById(elId);
       if(!el){clearInterval(activeTimers[elId]);return;}
+      if(!c.deadline && c.duration){ c.deadline = Date.now() + c.duration*1000; }
       const rem=Math.max(0,Math.floor((c.deadline-Date.now())/1000));
       el.textContent=rem+"s";
-      if(rem<=0){
-        clearInterval(activeTimers[elId]);
-        if(!c.expired){ c.expired = true; persist(); }
-        el.textContent = "Expired";
-        return;
-      }
+      if(rem<=0){ clearInterval(activeTimers[elId]); if(!c.expired){ c.expired=true; persist(); } el.textContent="Expired"; }
     };
-    tick();
-    activeTimers[elId]=setInterval(tick,1000);
+    tick(); activeTimers[elId]=setInterval(tick,1000);
   });
 }
 
-// ======= Score & Winner =======
+// ===== Score & Winner =====
 function bump(index,side,delta){
-  if(!isInitiator) return;
-  const c=activeChallenges[index];if(!c.score)c.score={a:0,b:0};
+  const c=activeChallenges[index]; if(!c.score) c.score={a:0,b:0};
   c.score[side]=Math.max(0,(c.score[side]||0)+delta);
-  document.getElementById(side==='a'?'sa-'+index:'sb-'+index).textContent=c.score[side];
-  persist();
-  renderActive();
+  const elId = side==='a'?'sa-'+index:'sb-'+index;
+  const el = document.getElementById(elId);
+  if(el) el.textContent=c.score[side];
+  persist(); renderActive();
 }
-
-// Disclaimer flow
-let declareIdx = null;
-let declareSide = null;
+let declareIdx=null, declareSide=null;
 function openDisclaimer(index, winnerSide){
   declareIdx = index; declareSide = winnerSide;
   const user = (winnerSide==='a'?'Initiator':'Opponent');
@@ -699,40 +952,28 @@ function openDisclaimer(index, winnerSide){
 function closeDisclaimer(e){ if(e) e.stopPropagation(); document.getElementById("disclaimerModal").classList.remove("show"); }
 function confirmDeclare(){
   if(declareIdx===null || !declareSide){ closeDisclaimer(); return; }
-  finalizeDeclare(declareIdx, declareSide);
-  closeDisclaimer();
-}
-
-function finalizeDeclare(index,side){
-  const c=activeChallenges.splice(index,1)[0];
-  if(side==='a'){ wins.push(c); notifyWin(c); } else { proofs.push(c); }
+  const c=activeChallenges.splice(declareIdx,1)[0];
+  if(declareSide==='a'){
+    c.result = "WIN";
+    wins.push(c);
+    notifyWin(c);
+  } else {
+    c.result = "LOSS";
+  }
   historyChallenges.push(c);
-  persist();
-  renderAll();
+  persist(); renderAll(); closeDisclaimer();
 }
 
-// ======= Wins / Proof / History Modals =======
+// ===== Modals for details =====
 function showWinsDetail(win){
   document.getElementById("winsDetailDesc").innerText = win.description;
   document.getElementById("winsDetailStake").innerText = win.stake||"—";
   document.getElementById("winsDetailRules").innerText = win.rules||"—";
   document.getElementById("winsDetailSeries").innerText = win.series===""?"Single":(win.series==="bo3"?"BEST OF 3":"BEST OF 7");
   document.getElementById("winsDetailScore").innerText = (win.score?win.score.a:0) + " - " + (win.score?win.score.b:0);
-  document.getElementById("winsDetailModal").querySelector(".card").insertAdjacentHTML("beforeend","<p><strong>Response:</strong> "+(win.response||"—")+"</p>");
   document.getElementById("winsDetailModal").classList.add("show");
 }
 function closeWinsDetail(e){ if(e) e.stopPropagation(); document.getElementById("winsDetailModal").classList.remove("show"); }
-
-function showProofDetail(p){
-  document.getElementById("proofDetailDesc").innerText = p.description;
-  document.getElementById("proofDetailStake").innerText = p.stake||"—";
-  document.getElementById("proofDetailRules").innerText = p.rules||"—";
-  document.getElementById("proofDetailSeries").innerText = p.series===""?"Single":(p.series==="bo3"?"BEST OF 3":"BEST OF 7");
-  document.getElementById("proofDetailScore").innerText = (p.score?p.score.a:0) + " - " + (p.score?p.score.b:0);
-  document.getElementById("proofDetailModal").querySelector(".card").insertAdjacentHTML("beforeend","<p><strong>Response:</strong> "+(p.response||"—")+"</p>");
-  document.getElementById("proofDetailModal").classList.add("show");
-}
-function closeProofDetail(e){ if(e) e.stopPropagation(); document.getElementById("proofDetailModal").classList.remove("show"); }
 
 function showHistoryDetail(h){
   document.getElementById("historyDetailDesc").innerText = h.description;
@@ -740,36 +981,33 @@ function showHistoryDetail(h){
   document.getElementById("historyDetailRules").innerText = h.rules||"—";
   document.getElementById("historyDetailSeries").innerText = h.series===""?"Single":(h.series==="bo3"?"BEST OF 3":"BEST OF 7");
   document.getElementById("historyDetailScore").innerText = (h.score?h.score.a:0) + " - " + (h.score?h.score.b:0);
-  document.getElementById("historyDetailModal").querySelector(".card").insertAdjacentHTML("beforeend","<p><strong>Response:</strong> "+(h.response||"—")+"</p>");
-  document.getElementById("historyExtra").innerText = h.declined ? "(Declined)" : (h.expired ? "(Expired)" : "");
+  const status = h.result ? `(${h.result})` : (h.declined ? "(Declined)" : (h.expired ? "(Expired)" : ""));
+  document.getElementById("historyExtra").innerText = status;
   document.getElementById("historyDetailModal").classList.add("show");
 }
 function closeHistoryDetail(e){ if(e) e.stopPropagation(); document.getElementById("historyDetailModal").classList.remove("show"); }
 
-// ======= Notifications =======
+// ===== Notifications =====
 function notifyWin(win){
   const body = "Prize: "+(win.stake||"—");
   if("Notification" in window && Notification.permission==="granted"){
-    try{ new Notification("You Won!",{ body }); }catch(e){ alert("You Won! "+body); }
-  } else { alert("You Won! "+body); }
+    try{ new Notification("You Won",{ body }); }catch(e){ alert("You Won "+body); }
+  } else { alert("You Won "+body); }
 }
 function notifyReceived(challenge){
   if("Notification" in window && Notification.permission==="granted"){
     try{
-      const n = new Notification("New Challenge!",{ body: challenge.initiator+" challenged you: "+challenge.description });
+      const n = new Notification("New Challenge",{ body: "Challenged: "+challenge.description });
       n.onclick = ()=>{ window.focus(); showReceiveModal(challenge); };
     }catch(e){
       alert("New Challenge: "+challenge.description);
       showReceiveModal(challenge);
     }
   } else {
-    alert("New Challenge: "+challenge.description);
     showReceiveModal(challenge);
   }
 }
-
-// Receive modal controls
-let pendingReceived = null;
+let pendingReceived=null;
 function showReceiveModal(challenge){
   document.getElementById("receiveDesc").innerText = challenge.description;
   document.getElementById("receivePrize").innerText = challenge.stake || "—";
@@ -786,126 +1024,24 @@ function acceptChallenge(){ if(pendingReceived){
   } closeReceiveModal(); }
 function declineChallenge(){ if(pendingReceived){ historyChallenges.push(Object.assign({},pendingReceived,{declined:true})); persist(); renderAll(); } closeReceiveModal(); }
 
-// ======= Test Buttons =======
-function testWin(){
-  const sample={ description:"Sample challenge won", stake:"Dinner for Two", rules:"—", series:"bo3", score:{a:2,b:1} };
-  notifyWin(sample);
-  showWinsDetail(sample);
-}
-function testReceived(){
-  const sample={ initiator:"Alex", description:"Cook dinner together", stake:"Loser does dishes", rules:"No takeout", series:"bo3", score:{a:0,b:0}, deadline: Date.now()+600000 };
-  notifyReceived(sample);
-}
-
-// ======= Persistence =======
+// ===== Persistence =====
 function persist(){
   localStorage.setItem("activeChallenges",JSON.stringify(activeChallenges));
   localStorage.setItem("historyChallenges",JSON.stringify(historyChallenges));
   localStorage.setItem("wins",JSON.stringify(wins));
-  localStorage.setItem("proofs",JSON.stringify(proofs));
 }
 
-
-let state = { user:{name:'',email:'',loggedIn:false,avatar:null} };
-
-function saveAccount(){
-  const name=document.getElementById("username").value;
-  const email=document.getElementById("useremail").value;
-  const avatar=document.getElementById("avatarPreview").src || null;
-  state.user={name,email,loggedIn:true,avatar};
-  localStorage.setItem("decadareUser",JSON.stringify(state.user));
-  updateNavAvatar();
-  showToast("Account saved!");
-}
-function logout(){
-  state.user={name:'',email:'',loggedIn:false,avatar:null};
-  localStorage.removeItem("decadareUser");
-  updateNavAvatar();
-  showToast("Logged out");
-  navTo('home');
-}
+// ===== Account =====
 function updateNavAvatar(){
-  const navAvatar=document.getElementById("navAvatar");
-  if(state.user && state.user.avatar){
-    navAvatar.src=state.user.avatar;
-    navAvatar.style.display="inline-block";
-    navAvatar.onclick=()=>navTo('account');
-  } else {
-    navAvatar.style.display="none";
-  }
+  const u=getUser();
+  const img=document.getElementById('navAvatar');
+  if(img) img.src = u.avatar||"https://via.placeholder.com/100";
 }
-window.addEventListener("DOMContentLoaded", ()=>{
-  const saved=localStorage.getItem("decadareUser");
-  if(saved){
-    state.user=JSON.parse(saved);
-    if(state.user.name) document.getElementById("username").value=state.user.name;
-    if(state.user.email) document.getElementById("useremail").value=state.user.email;
-    if(state.user.avatar){
-      document.getElementById("avatarPreview").src=state.user.avatar;
-      updateNavAvatar();
-    }
-  }
-  const up=document.getElementById("avatarUpload");
-  if(up){
-    up.addEventListener("change", e=>{
-      const file=e.target.files[0];
-      if(file){
-        const reader=new FileReader();
-        reader.onload=()=>{
-          document.getElementById("avatarPreview").src=reader.result;
-          state.user.avatar = reader.result;
-          state.user.loggedIn = true;
-          localStorage.setItem("decadareUser", JSON.stringify(state.user));
-          updateNavAvatar();
-          showToast("Avatar updated!");
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  }
-});
-
-// ======= Init =======
-renderAll();
-</script>
-
-<script>
-let pageStack = [];
-function navTo(pageId){
-  const current = document.querySelector('main section.active');
-  if(current && current.id !== pageId){
-    pageStack.push(current.id);
-    current.classList.remove('active');
-  }
-  document.querySelectorAll('main section').forEach(sec=>sec.classList.remove('active'));
-  const target = document.getElementById(pageId);
-  if(target){ target.classList.add('active'); }
-  const backBtn = document.getElementById('backBtn');
-  if(backBtn) backBtn.style.display = (pageId==="home" || pageId==="signin") ? "none" : "inline-block";
-  if(pageId === "account"){ loadAccount(); }
-
-}
-function goBack(){
-  if(pageStack.length>0){
-    const prev = pageStack.pop();
-    document.querySelectorAll('main section').forEach(sec=>sec.classList.remove('active'));
-    const target = document.getElementById(prev) || document.getElementById('home');
-    if(target){ target.classList.add('active'); }
-    const backBtn = document.getElementById('backBtn');
-    if(backBtn) backBtn.style.display = (target.id==="home" || target.id==="signin") ? "none" : "inline-block";
-  } else {
-    navTo('home');
-  }
-}
-function getUser(){ try{ return JSON.parse(localStorage.getItem('decadareUser')||"{}"); }catch(e){ return {}; } }
-function setUser(obj){ localStorage.setItem('decadareUser', JSON.stringify(obj||{})); }
-function updateNavAvatar(){ const u=getUser(); const img=document.getElementById('navAvatar'); if(img) img.src = u.avatar||"https://via.placeholder.com/40"; }
 function loadAccount(){
   const u = getUser();
-  if(document.getElementById('username')) document.getElementById('username').value = u.username || "";
-  if(document.getElementById('useremail')) document.getElementById('useremail').value = u.email || "";
-  if(document.getElementById('userphone')) document.getElementById('userphone').value = u.phone || "";
-  if(document.getElementById('avatarPreview')) document.getElementById('avatarPreview').src = u.avatar || "https://via.placeholder.com/100";
+  const set = (id,val)=>{ const el=document.getElementById(id); if(el) el.value = val||""; };
+  set('username', u.username); set('useremail', u.email); set('userphone', u.phone);
+  const ap=document.getElementById('avatarPreview'); if(ap) ap.src = u.avatar || "https://via.placeholder.com/100";
 }
 function saveAccount(){
   const u={
@@ -915,11 +1051,7 @@ function saveAccount(){
     avatar:document.getElementById('avatarPreview')?.src||null,
     loggedIn:true
   };
-  setUser(u);
-  updateNavAvatar();
-  pageStack = [];
-  updateNavAvatar();
-  pageStack = []; updateNavAvatar(); navTo('home');
+  setUser(u); updateNavAvatar(); navTo('home');
 }
 function logout(){ setUser({loggedIn:false}); updateNavAvatar(); navTo('signin'); }
 document.addEventListener('change',function(e){
@@ -928,49 +1060,1202 @@ document.addEventListener('change',function(e){
       const a=document.getElementById('avatarPreview'); if(a) a.src=reader.result;
       const u=getUser(); u.avatar=reader.result; u.loggedIn=true; setUser(u); updateNavAvatar();
     }; reader.readAsDataURL(file);} } });
+
+function openAccount(){ loadAccount(); navTo('account'); }
 function signIn(){
   const email=(document.getElementById('signinEmail')?.value||"").trim();
   const pw=(document.getElementById('signinPassword')?.value||"").trim();
   if(!email||!pw){ alert("Enter email and password"); return; }
-  let u=getUser(); u.email=email;
-  if(!u.avatar) u.avatar="https://via.placeholder.com/40"; u.loggedIn=true; setUser(u); updateNavAvatar(); navTo('home');
+  let u=getUser(); u.email=email; u.loggedIn=true;
+  if(!u.avatar) u.avatar="https://via.placeholder.com/100";
+  setUser(u); updateNavAvatar(); navTo('home');
 }
+
+// ===== Init =====
 document.addEventListener('DOMContentLoaded',()=>{
-  updateNavAvatar(); const u=getUser();
-  if(u && u.loggedIn && u.email){ navTo("home"); } else { navTo("signin"); }
-  const navAvatar=document.getElementById('navAvatar');
-  if(navAvatar){ navAvatar.onclick=()=>{ loadAccount(); navTo('account'); }; }
+  // migrate legacy "proofs" into history as LOSS so nothing is lost
+  try{
+    const legacyProofs = JSON.parse(localStorage.getItem("proofs")||"[]");
+    if(Array.isArray(legacyProofs) && legacyProofs.length){
+      legacyProofs.forEach(p=>{ p.result="LOSS"; historyChallenges.push(p); });
+      localStorage.removeItem("proofs");
+      localStorage.setItem("historyChallenges", JSON.stringify(historyChallenges));
+    }
+  }catch(e){}
+
+  updateNavAvatar();
+  const u=getUser();
+  if(u && u.loggedIn && (u.email||u.username)){ navTo("home"); }
+  else { navTo('signin'); }
+
+  if("Notification" in window){ try{ Notification.requestPermission(); }catch(e){} }
+  renderAll();
 });
-</script>
 
+// ===== Account field validation & phone masking (scoped) =====
+(function(){
 
-<script>
-function openAccount(){
-  if (typeof loadAccount === 'function') { loadAccount(); }
-  if (typeof navTo === 'function') { navTo('account'); }
-}
+  function norm(el){ return (typeof el === 'string') ? document.getElementById(el) : el; }
+  function setState(input, ok, msgEl, msg){
+    input = norm(input); msgEl = norm(msgEl);
+    input.classList.remove('error','valid');
+    msgEl.classList.remove('error','valid');
+    if(ok===true){
+      input.classList.add('valid');
+      msgEl.classList.add('valid');
+      msgEl.textContent = msg || '';
+      return true;
+    }else{
+      input.classList.add('error');
+      msgEl.classList.add('error');
+      msgEl.textContent = msg || '';
+      return false;
+    }
+  }
 
-document.addEventListener('DOMContentLoaded', function(){
-  // Ensure only Home is active on load
-  var secs = document.querySelectorAll('main section');
-  secs.forEach(function(sec){
-    if(sec.id === 'home'){ sec.classList.add('active'); }
-    else { sec.classList.remove('active'); }
+  function validateName(){
+    const el = document.getElementById('username');
+    const msg = document.getElementById('usernameMsg');
+    const v = (el.value||'').trim();
+    if(v.length < 2) return setState(el, false, msg, 'Please enter your name.');
+    return setState(el, true, msg, '');
+  }
+
+  function validateEmail(){
+    const el = document.getElementById('useremail');
+    const msg = document.getElementById('useremailMsg');
+    const v = (el.value||'').trim();
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    if(!ok) return setState(el, false, msg, 'Enter a valid email.');
+    return setState(el, true, msg, '');
+  }
+
+  function formatPhoneDigits(d){
+    d = d.replace(/\D+/g,'');
+    if(d.length > 10) d = d.slice(0, 10);
+    const p1 = d.slice(0,3), p2 = d.slice(3,6), p3 = d.slice(6);
+    if(d.length <= 3) return p1 ? `(${p1}` : '';
+    if(d.length <= 6) return `(${p1}) ${p2}`;
+    return `(${p1}) ${p2}-${p3}`;
+  }
+
+  function validatePhone({maskOnly=false} = {}){
+    const el = document.getElementById('userphone');
+    const msg = document.getElementById('userphoneMsg');
+    let v = el.value||'';
+    const masked = formatPhoneDigits(v);
+    if(maskOnly){ el.value = masked; return true; }
+    el.value = masked;
+    const digits = (masked.match(/\d/g)||[]).length;
+    if(digits < 10) return setState(el, false, msg, 'Enter a 10-digit phone number.');
+    return setState(el, true, msg, '');
+  }
+
+  function validatePassword(){
+    const el = document.getElementById('userpassword');
+    const msg = document.getElementById('userpasswordMsg');
+    const v = (el.value||'');
+    if(v.length === 0){
+      el.classList.remove('error','valid'); msg.textContent=''; msg.classList.remove('error','valid'); return true;
+    }
+    const ok = v.length>=8 && /[0-9!@#$%^&*]/.test(v);
+    if(!ok) return setState(el, false, msg, 'Min 8 chars and include a number or symbol.');
+    return setState(el, true, msg, '');
+  }
+
+  function bindValidation(){
+    const nameEl = document.getElementById('username');
+    const emailEl = document.getElementById('useremail');
+    const phoneEl = document.getElementById('userphone');
+    const passEl = document.getElementById('userpassword');
+
+    if(nameEl){ nameEl.addEventListener('input', validateName); nameEl.addEventListener('blur', validateName); }
+    if(emailEl){ emailEl.addEventListener('input', validateEmail); emailEl.addEventListener('blur', validateEmail); }
+    if(phoneEl){
+      phoneEl.addEventListener('input', function(){ validatePhone({maskOnly:true}); });
+      phoneEl.addEventListener('blur', function(){ validatePhone({maskOnly:false}); });
+    }
+    if(passEl){ passEl.addEventListener('input', validatePassword); passEl.addEventListener('blur', validatePassword); }
+  }
+
+  const __origSave = window.saveAccount;
+  window.saveAccount = function(){
+    const ok = validateName() & validateEmail() & validatePhone({maskOnly:false}) & validatePassword();
+    if(!ok){
+      const order = ['username','useremail','userphone','userpassword'];
+      for(const id of order){
+        const el = document.getElementById(id);
+        if(el && el.classList.contains('error')){ try{ el.focus(); }catch(e){} break; }
+      }
+      alert('Please fix the highlighted fields.');
+      return;
+    }
+    return __origSave && __origSave();
+  };
+
+  document.addEventListener('DOMContentLoaded', bindValidation);
+})();
+
+/* ==== Wins 'New' badge logic (scoped) ==== */
+(function(){
+  function getWinsCount(){
+    try{ return JSON.parse(localStorage.getItem('wins')||'[]').length; }catch(e){ return 0; }
+  }
+  function updateWinsBadge(){
+    var badge = document.getElementById('winsBadge');
+    if(!badge) return;
+    var has = localStorage.getItem('winsHasNew') === '1';
+    badge.style.display = has ? 'inline-block' : 'none';
+  }
+  // Patch navTo to clear badge when entering Wins
+  var __navTo = window.navTo;
+  window.navTo = function(pageId){
+    if(typeof __navTo === 'function'){ __navTo(pageId); }
+    if(pageId === 'wins'){
+      try{
+        localStorage.setItem('winsSeen', String(getWinsCount()));
+        localStorage.removeItem('winsHasNew');
+      }catch(e){}
+    }
+    updateWinsBadge();
+  };
+  // Patch confirmDeclare to set badge when user wins
+  var __confirmDeclare = window.confirmDeclare;
+  window.confirmDeclare = function(){
+    var wasA = (window.declareSide === 'a');
+    if(typeof __confirmDeclare === 'function'){ __confirmDeclare(); }
+    if(wasA){
+      try{
+        localStorage.setItem('winsHasNew','1');
+      }catch(e){}
+      updateWinsBadge();
+    }
+  };
+  // On load, if wins increased since last seen, show badge
+  document.addEventListener('DOMContentLoaded', function(){
+    try{
+      var count = getWinsCount();
+      var last = parseInt(localStorage.getItem('winsSeen')||'0', 10);
+      if(count > last){
+        localStorage.setItem('winsHasNew','1');
+      }
+    }catch(e){}
+    updateWinsBadge();
   });
-  // Make avatar open Account
-  var av = document.getElementById('navAvatar');
-  if(av){ av.onclick = openAccount; }
-});
-</script>
+})();
 
+/* ==== Toast + Simulator (scoped) ==== */
+(function(){
+  function ensureToastWrap(){
+    var wrap=document.getElementById('toastWrap');
+    if(!wrap){
+      wrap=document.createElement('div'); wrap.id='toastWrap'; document.body.appendChild(wrap);
+    }
+    return wrap;
+  }
+  function showToast(message, title, ttlMs){
+    var wrap=ensureToastWrap();
+    var card=document.createElement('div'); card.className='toast';
+    var h=document.createElement('div'); h.className='toast-title'; h.textContent=title||'Notice';
+    var p=document.createElement('div'); p.className='toast-msg'; p.textContent=message||'';
+    var b=document.createElement('button'); b.className='toast-hide'; b.textContent='Close'; b.onclick=function(){ try{ wrap.removeChild(card); }catch(e){} };
+    card.appendChild(h); card.appendChild(p); card.appendChild(b);
+    wrap.appendChild(card);
+    setTimeout(function(){ try{ wrap.removeChild(card); }catch(e){} }, ttlMs||4000);
+    try{ if('Notification' in window && Notification.permission==='granted'){ new Notification((title?title+': ':'')+message); } }catch(e){}
+  }
+  function forceWinsBadge(){ var b=document.getElementById('winsBadge'); if(b){ b.style.display='inline-block'; } }
+  window.simNotify = function(type){
+    if(type==='received'){
+      showToast('You have received a new challenge.', 'New Challenge', 5000);
+    } else if(type==='win'){
+      var t = prompt('Title of the challenge you won?','Sample Challenge');
+      var msg = "You have won '"+(t||'your')+"' challenge";
+      showToast(msg, 'Victory', 5000);
+      try{ localStorage.setItem('winsHasNew','1'); }catch(e){}
+      forceWinsBadge();
+    } else if(type==='ended'){
+      var n = prompt('Which challenge ended?','Sample Challenge');
+      var txt = "Challenge has ended"+(n?": "+n:"")+".";
+      showToast(txt, 'Challenge Ended', 5000);
+    }
+  };
+})();
+/* ==== Initiator 'open challenges' badge (scoped) ==== */
+(function(){
+  function getUserNameOrDefault(){
+    try{
+      var u = getUser && getUser();
+      if(u && u.username && String(u.username).trim().length>0) return String(u.username).trim();
+    }catch(e){}
+    return 'Initiator';
+  }
+  function initiatorOpenCount(){
+    try{
+      var name = getUserNameOrDefault();
+      var arr = Array.isArray(window.activeChallenges) ? window.activeChallenges : [];
+      return arr.filter(function(c){ return (c && (c.initiator||'Initiator')===name); }).length;
+    }catch(e){ return 0; }
+  }
+  window.updateInitiatorBadge = function(){
+    var badge = document.getElementById('initiatorCountBadge');
+    if(!badge) return;
+    var n = initiatorOpenCount();
+    if(n>0){ badge.textContent = String(n); badge.style.display = 'inline-block'; }
+    else { badge.style.display = 'none'; }
+  };
 
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  document.querySelectorAll('main section').forEach(sec=>{
-    if(sec.id==='home'){ sec.classList.add('active'); } else { sec.classList.remove('active'); }
+  // Ensure newly created challenges are attributed to current user
+  var __send = window.sendChallenge;
+  window.sendChallenge = function(){
+    try{
+      if(window.pendingChallenge){
+        var name = getUserNameOrDefault();
+        if(!window.pendingChallenge.initiator || window.pendingChallenge.initiator==='Initiator'){
+          window.pendingChallenge.initiator = name;
+        }
+      }
+    }catch(e){}
+    var r = __send && __send();
+    try{ updateInitiatorBadge(); }catch(e){}
+    return r;
+  };
+
+  // After renderAll, refresh badge
+  var __renderAll = window.renderAll;
+  window.renderAll = function(){
+    var r = __renderAll && __renderAll();
+    try{ updateInitiatorBadge(); }catch(e){}
+    return r;
+  };
+
+  // When closing a challenge, refresh badge as count may decrease
+  if(typeof window.confirmDeclare === 'function'){
+    var __confirmDeclare = window.confirmDeclare;
+    window.confirmDeclare = function(){
+      var r = __confirmDeclare && __confirmDeclare();
+      try{ updateInitiatorBadge(); }catch(e){}
+      return r;
+    };
+  }
+
+  // When navigating around, keep it fresh
+  if(typeof window.navTo === 'function'){
+    var __navTo = window.navTo;
+    window.navTo = function(pageId){
+      var r = __navTo && __navTo(pageId);
+      try{ updateInitiatorBadge(); }catch(e){}
+      return r;
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    try{ updateInitiatorBadge(); }catch(e){}
   });
-});
+})();
+
+/* ==== Brand link: reliable Home navigation ==== */
+(function(){
+  function bindBrandLink(){
+    var el = document.getElementById('brandLink');
+    if(!el){
+      el = document.querySelector('.header-left');
+    }
+    if(!el) return;
+    el.setAttribute('role','button');
+    el.setAttribute('tabindex','0');
+    function goHome(ev){
+      try{ ev && ev.preventDefault(); ev && ev.stopPropagation(); }catch(e){}
+      try{ if(typeof navTo==='function'){ navTo('home'); } }catch(e){}
+      return false;
+    }
+    el.addEventListener('click', goHome);
+    el.addEventListener('keydown', function(e){
+      if(e.key==='Enter' || e.key===' '){
+        goHome(e);
+      }
+    });
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', bindBrandLink);
+  }else{
+    bindBrandLink();
+  }
+})();
+
+/* ==== Avatar as account selector (accessible) ==== */
+(function(){
+  function bindAvatarAccount(){
+    var a = document.getElementById('navAvatar');
+    if(!a) return;
+    function go(ev){
+      try{ ev && ev.preventDefault(); ev && ev.stopPropagation(); }catch(e){}
+      try{ if(typeof openAccount==='function'){ openAccount(); } }catch(e){}
+      return false;
+    }
+    a.addEventListener('keydown', function(e){
+      if(e.key==='Enter' || e.key===' '){ go(e); }
+    });
+    // keep existing click handler if present; ensure pointer cursor is set in CSS already
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', bindAvatarAccount);
+  } else {
+    bindAvatarAccount();
+  }
+})();
+
+// === Company prize images & avatars (scoped) ===
+(function(){
+  // Simple image mapping for company prizes (placeholder seeds)
+  window.companyPrizeImages = {
+    "Coffee Date from Local Café":"https://picsum.photos/seed/coffee/120/120",
+    "Spa Voucher by BlissCo":"https://picsum.photos/seed/spa/120/120",
+    "Dinner for Two by Bistro Partners":"https://picsum.photos/seed/dinner/120/120",
+    "Movie Night Tickets by CineWorld":"https://picsum.photos/seed/movie/120/120",
+    "Dessert Box by SweetTreats":"https://picsum.photos/seed/dessert/120/120",
+    "Flower Delivery by Bloom Alley":"https://picsum.photos/seed/flowers/120/120",
+    "Wine Tasting Pass by Vino Club":"https://picsum.photos/seed/wine/120/120",
+    "Brunch for Two by SunnySide":"https://picsum.photos/seed/brunch/120/120",
+    "Picnic Kit by Outdoor Co":"https://picsum.photos/seed/picnic/120/120",
+    "Fitness Class Pass by FitTogether":"https://picsum.photos/seed/fitness/120/120"
+  };
+
+  // Default avatars
+  function getOpponent(){
+    try{ return JSON.parse(localStorage.getItem('decadareOpponent')||'{}'); }catch(e){ return {}; }
+  }
+  function setOpponent(obj){
+    try{ localStorage.setItem('decadareOpponent', JSON.stringify(obj||{})); }catch(e){}
+  }
+  // Ensure opponent has a default avatar
+  (function ensureOpp(){
+    var o = getOpponent();
+    if(!o || !o.avatar){
+      o = o || {}; o.username = o.username || 'Opponent';
+      o.avatar = "https://picsum.photos/seed/opponent/100";
+      setOpponent(o);
+    }
+  })();
+
+  function currentUserAvatar(){
+    try{
+      var u = getUser && getUser();
+      if(u && u.avatar) return u.avatar;
+    }catch(e){}
+    return "https://picsum.photos/seed/user/100";
+  }
+
+  function opponentAvatar(){
+    try{
+      var o = getOpponent();
+      if(o && o.avatar) return o.avatar;
+    }catch(e){}
+    return "https://picsum.photos/seed/opponent/100";
+  }
+
+  // Track latest selected company prize image
+  window.selectedPrizeImage = null;
+
+  // Decorate addOption to include images for company prizes
+  var __addOption = window.addOption;
+  window.addOption = function(containerId, text, targetId){
+    __addOption && __addOption(containerId, text, targetId);
+    try{
+      if(containerId === "companyPrizes"){
+        var container = document.getElementById(containerId);
+        if(!container) return;
+        // Find the last .option we just appended and inject an image + adjust handler
+        var opts = container.querySelectorAll(".option");
+        var row = opts[opts.length-1];
+        if(row){
+          var imgUrl = companyPrizeImages[text] || "https://picsum.photos/seed/prize/120/120";
+          // Replace inner with media layout
+          var btn = row.querySelector("button");
+          row.innerHTML = "";
+          var left = document.createElement("div"); left.className = "opt-media";
+          var pic = document.createElement("img"); pic.src = imgUrl; pic.alt = "Prize";
+          var span = document.createElement("span"); span.textContent = text;
+          left.appendChild(pic); left.appendChild(span);
+          var act = document.createElement("button"); act.className = "btn"; act.textContent = "Use";
+          act.onclick = function(){
+            var target = document.getElementById(targetId);
+            if(target){
+              if(target.tagName.toLowerCase()==='textarea' || target.tagName.toLowerCase()==='input'){ target.value = text; }
+              else { target.textContent = text; }
+              window.selectedPrizeImage = imgUrl;
+            }
+            var dd = container.closest(".dropdown"); if(dd) dd.classList.remove("expanded");
+          };
+          row.appendChild(left); row.appendChild(act);
+        }
+      }
+    }catch(e){}
+  };
+
+  // When confirming a challenge, attach the selected prize image (if any) or infer by mapping
+  var __confirmChallenge = window.confirmChallenge;
+  window.confirmChallenge = function(){
+    var valEl = document.getElementById("prizeStakes");
+    var val = valEl ? (valEl.value||"").trim() : "";
+    if(!window.selectedPrizeImage && val && window.companyPrizeImages && window.companyPrizeImages[val]){
+      window.selectedPrizeImage = window.companyPrizeImages[val];
+    }
+    return __confirmChallenge && __confirmChallenge();
+  };
+
+  // Attach prize image to pendingChallenge and display in details
+  var __confirmSendYes = window.confirmSendYes;
+  window.confirmSendYes = function(){
+    try{
+      if(window.pendingChallenge){
+        window.pendingChallenge.prizeImage = window.selectedPrizeImage || window.pendingChallenge.prizeImage || null;
+      }
+    }catch(e){}
+    return __confirmSendYes && __confirmSendYes();
+  };
+
+  // Ensure sendChallenge carries avatars
+  var __sendChallenge = window.sendChallenge;
+  window.sendChallenge = function(){
+    try{
+      if(window.pendingChallenge){
+        window.pendingChallenge.initiatorAvatar = currentUserAvatar();
+        window.pendingChallenge.opponentAvatar = opponentAvatar();
+      }
+    }catch(e){}
+    return __sendChallenge && __sendChallenge();
+  };
+
+  // Update Confirm Details image display when details are filled
+  var __fillDetails = window.confirmChallenge;
+  // Already wrapped above; instead hook when showing Review modal, we can also refresh detail image on nav to 'confirm'
+  var __renderAll = window.renderAll;
+  window.renderAll = function(){
+    var r = __renderAll && __renderAll();
+    try{
+      // If details section visible, set image
+      var img = document.getElementById("detailPrizeImg");
+      if(img && window.selectedPrizeImage){
+        img.src = window.selectedPrizeImage;
+        img.style.display = "inline-block";
+      }
+    }catch(e){}
+    return r;
+  };
+
+  // Patch individual renderers to show prize images and avatars
+  var __renderActive = window.renderActive;
+  window.renderActive = function(){
+    var r = __renderActive && __renderActive();
+    try{
+      // enhance each active card: prepend prize image if present, add avatars to chips
+      var wrap = document.getElementById("activeList");
+      if(!wrap) return r;
+      Array.from(wrap.getElementsByClassName("card")).forEach(function(card, idx){
+        var c = window.activeChallenges && window.activeChallenges[idx];
+        if(!c) return;
+        // Prize image at top line
+        if(c.prizeImage && !card.querySelector('.prize-thumb')){
+          var firstP = card.querySelector("p");
+          var img = document.createElement("img"); img.className="prize-thumb"; img.src=c.prizeImage; img.alt="Prize";
+          if(firstP){ firstP.insertAdjacentElement('afterbegin', img); }
+        }
+        // Avatars inside score row chips
+        var initChip = card.querySelector(`[id^="sa-"]`)?.parentElement;
+        var oppChip = card.querySelector(`[id^="sb-"]`)?.parentElement;
+        if(initChip && !initChip.querySelector('img.avatar-sm')){
+          var av = document.createElement('img'); av.className='avatar-sm'; av.src = c.initiatorAvatar || currentUserAvatar(); av.alt="Initiator";
+          initChip.insertBefore(av, initChip.firstChild);
+        }
+        if(oppChip && !oppChip.querySelector('img.avatar-sm')){
+          var av2 = document.createElement('img'); av2.className='avatar-sm'; av2.src = c.opponentAvatar || opponentAvatar(); av2.alt="Opponent";
+          oppChip.insertBefore(av2, oppChip.firstChild);
+        }
+      });
+    }catch(e){}
+    return r;
+  };
+
+  var __renderWins = window.renderWins;
+  window.renderWins = function(){
+    var r = __renderWins && __renderWins();
+    try{
+      var wrap = document.getElementById("winsList");
+      if(!wrap) return r;
+      Array.from(wrap.getElementsByClassName("card")).forEach(function(card, idx){
+        var c = window.wins && window.wins[idx];
+        if(!c) return;
+        if(c.prizeImage && !card.querySelector('.prize-thumb')){
+          var firstP = card.querySelector("p");
+          var img = document.createElement("img"); img.className="prize-thumb"; img.src=c.prizeImage; img.alt="Prize";
+          if(firstP){ firstP.insertAdjacentElement('afterbegin', img); }
+        }
+      });
+    }catch(e){}
+    return r;
+  };
+
+  var __renderHistory = window.renderHistory;
+  window.renderHistory = function(){
+    var r = __renderHistory && __renderHistory();
+    try{
+      var wrap = document.getElementById("historyList");
+      if(!wrap) return r;
+      Array.from(wrap.getElementsByClassName("card")).forEach(function(card, idx){
+        var c = window.historyChallenges && window.historyChallenges[idx];
+        if(!c) return;
+        if(c.prizeImage && !card.querySelector('.prize-thumb')){
+          var firstP = card.querySelector("p");
+          var img = document.createElement("img"); img.className="prize-thumb"; img.src=c.prizeImage; img.alt="Prize";
+          if(firstP){ firstP.insertAdjacentElement('afterbegin', img); }
+        }
+      });
+    }catch(e){}
+    return r;
+  };
+
+  // Initial enhancement for Home preview as well
+  var __renderHomeActive = window.renderHomeActive;
+  window.renderHomeActive = function(){
+    var r = __renderHomeActive && __renderHomeActive();
+    try{
+      var wrap = document.getElementById('homeActivePreview');
+      if(!wrap) return r;
+      Array.from(wrap.querySelectorAll('.card')).forEach(function(card, idx){
+        var c = window.activeChallenges && window.activeChallenges[idx];
+        if(c && c.prizeImage && !card.querySelector('.prize-thumb')){
+          var firstDiv = card.querySelector('div');
+          var img = document.createElement('img'); img.className='prize-thumb'; img.src=c.prizeImage; img.alt='Prize';
+          if(firstDiv){ firstDiv.insertAdjacentElement('afterbegin', img); }
+        }
+      });
+    }catch(e){}
+    return r;
+  };
+
+  // On load, refresh renders to apply decorations
+  document.addEventListener('DOMContentLoaded', function(){
+    try{ renderAll(); }catch(e){}
+  });
+})();
+
+/* ==== Optional prize image upload (initiator) ==== */
+(function(){
+  function bindPrizeUpload(){
+    var input = document.getElementById('prizeImageUpload');
+    var prev = document.getElementById('prizePreview');
+    var clr = document.getElementById('clearPrizeImg');
+    if(!input || !prev || !clr) return;
+
+    function clearImg(){
+      try{ window.selectedPrizeImage = null; }catch(e){}
+      prev.style.display = 'none';
+      prev.removeAttribute('src');
+      try{
+        // If a mapped company prize exists, reapply it on clear
+        var valEl = document.getElementById('prizeStakes');
+        var val = valEl ? (valEl.value||'').trim() : '';
+        if(val && window.companyPrizeImages && window.companyPrizeImages[val]){
+          window.selectedPrizeImage = window.companyPrizeImages[val];
+          prev.src = window.selectedPrizeImage;
+          prev.style.display = 'inline-block';
+        }
+      }catch(e){}
+    }
+
+    clr.addEventListener('click', function(e){ e.preventDefault(); clearImg(); });
+
+    input.addEventListener('change', function(){
+      var file = input.files && input.files[0];
+      if(!file) return;
+      var reader = new FileReader();
+      reader.onload = function(){
+        try{ window.selectedPrizeImage = reader.result; }catch(e){}
+        prev.src = reader.result;
+        prev.style.display = 'inline-block';
+        // reflect in details if visible
+        var dimg = document.getElementById('detailPrizeImg');
+        if(dimg){ dimg.src = reader.result; dimg.style.display = 'inline-block'; }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', bindPrizeUpload);
+  } else {
+    bindPrizeUpload();
+  }
+})();
+
+/* ==== Show prize image in Review modal if available ==== */
+(function(){
+  var __confirmChallenge = window.confirmChallenge;
+  window.confirmChallenge = function(){
+    var r = __confirmChallenge && __confirmChallenge();
+    try{
+      var img = document.getElementById('sendPrizeImg');
+      if(img){
+        if(window.selectedPrizeImage){
+          img.src = window.selectedPrizeImage;
+          img.style.display = 'inline-block';
+        }else{
+          // try infer from mapping based on current prizeStakes value
+          var valEl = document.getElementById('prizeStakes');
+          var val = valEl ? (valEl.value||'').trim() : '';
+          var inferred = (window.companyPrizeImages && window.companyPrizeImages[val]) ? window.companyPrizeImages[val] : null;
+          if(inferred){
+            img.src = inferred;
+            img.style.display = 'inline-block';
+            window.selectedPrizeImage = inferred; // keep consistent
+          }else{
+            img.style.display = 'none';
+            img.removeAttribute('src');
+          }
+        }
+      }
+    }catch(e){}
+    return r;
+  };
+})();
+
+/* ==== Per-point notifications + Active list Update badges ==== */
+(function(){
+  function uid(){ return 'c_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); }
+
+  function getOpponentUnseen(){
+    try{ return JSON.parse(localStorage.getItem('opponentUnseen')||'{}'); }catch(e){ return {}; }
+  }
+  function setOpponentUnseen(obj){
+    try{ localStorage.setItem('opponentUnseen', JSON.stringify(obj||{})); }catch(e){}
+  }
+  function pushOpponentNotification(n){
+    try{
+      var arr = JSON.parse(localStorage.getItem('opponentNotifications')||'[]');
+      arr.push(n);
+      localStorage.setItem('opponentNotifications', JSON.stringify(arr));
+    }catch(e){}
+  }
+
+  // Wrap sendChallenge to ensure a unique id
+  if(typeof window.sendChallenge === 'function'){
+    var __sendChallengeForId = window.sendChallenge;
+    window.sendChallenge = function(){
+      try{
+        if(window.pendingChallenge){
+          if(!window.pendingChallenge.id){ window.pendingChallenge.id = uid(); }
+        }
+      }catch(e){}
+      return __sendChallengeForId && __sendChallengeForId();
+    };
+  }
+
+  // Ensure existing active challenges have ids (migration)
+  try{
+    if(Array.isArray(window.activeChallenges)){
+      var changed=false;
+      window.activeChallenges.forEach(function(c){
+        if(c && !c.id){ c.id = uid(); changed=true; }
+      });
+      if(changed){ persist && persist(); }
+    }
+  }catch(e){}
+
+  // Wrap bump to generate opponent notifications on positive increments
+  if(typeof window.bump === 'function'){
+    var __bump = window.bump;
+    window.bump = function(index, side, delta){
+      var beforeA = 0, beforeB = 0, ch = (window.activeChallenges||[])[index];
+      if(ch && ch.score){ beforeA = ch.score.a||0; beforeB = ch.score.b||0; }
+      var r = __bump && __bump(index, side, delta);
+      try{
+        var c = (window.activeChallenges||[])[index];
+        if(!c) return r;
+        // Only notify on +1 increments
+        if(delta>0){
+          var afterA = c.score?.a||0;
+          var afterB = c.score?.b||0;
+          var awardedName = side==='a' ? (c.initiator||'Initiator') : (c.opponent||'Opponent');
+          var notif = {
+            type:'score_update',
+            challengeId: c.id || null,
+            description: c.description || '',
+            stake: c.stake || '',
+            rules: c.rules || '',
+            series: c.series || '',
+            awardedTo: side,
+            awardedName: awardedName,
+            score: {a: afterA, b: afterB},
+            timestamp: Date.now(),
+            seen: false
+          };
+          pushOpponentNotification(notif);
+          var unseen = getOpponentUnseen();
+          var key = c.id || c.description || 'unknown';
+          unseen[key] = (unseen[key]||0) + 1;
+          setOpponentUnseen(unseen);
+        }
+      }catch(e){}
+      return r;
+    };
+  }
+
+  // Enhance renderActive to display Update badges per card
+  if(typeof window.renderActive === 'function'){
+    var __renderActive = window.renderActive;
+    window.renderActive = function(){
+      var r = __renderActive && __renderActive();
+      try{
+        var wrap=document.getElementById('activeList'); if(!wrap) return r;
+        var unseen = getOpponentUnseen();
+        // Walk cards and inject a badge before the first <p>
+        Array.from(wrap.getElementsByClassName('card')).forEach(function(card, idx){
+          var c = (window.activeChallenges||[])[idx];
+          if(!c) return;
+          var key = c.id || c.description || 'unknown';
+          var count = unseen[key]||0;
+          // remove existing badge if any
+          var old = card.querySelector('.badge-update'); if(old) old.remove();
+          if(count>0){
+            var badge = document.createElement('span');
+            badge.className='badge-update';
+            badge.textContent = 'Update ('+count+')';
+            var firstP = card.querySelector('p');
+            if(firstP){ firstP.insertAdjacentElement('beforebegin', badge); }
+            else { card.insertAdjacentElement('afterbegin', badge); }
+          }
+        });
+      }catch(e){}
+      return r;
+    };
+  }
+
+  // Keep badges fresh on navigation
+  if(typeof window.navTo === 'function'){
+    var __navTo = window.navTo;
+    window.navTo = function(pageId){
+      var r = __navTo && __navTo(pageId);
+      try{ if(pageId==='active'){ renderActive && renderActive(); } }catch(e){}
+      return r;
+    };
+  }
+
+})();
+/* ==== Ensure prize image persists into Active challenges ==== */
+(function(){
+  function getCurrentPrizeImage(){
+    try{
+      if(window.selectedPrizeImage) return window.selectedPrizeImage;
+      var prev = document.getElementById('prizePreview');
+      if(prev && prev.src && prev.style.display !== 'none') return prev.src;
+      var valEl = document.getElementById('prizeStakes');
+      var val = valEl ? (valEl.value||'').trim() : '';
+      if(val && window.companyPrizeImages && window.companyPrizeImages[val]){
+        return window.companyPrizeImages[val];
+      }
+    }catch(e){}
+    return null;
+  }
+
+  // Wrap confirmSendYes to stamp prizeImage before sending
+  if(typeof window.confirmSendYes === 'function'){
+    var __confirmSendYes_persist = window.confirmSendYes;
+    window.confirmSendYes = function(){
+      try{
+        if(window.pendingChallenge){
+          var img = getCurrentPrizeImage();
+          if(img){ window.pendingChallenge.prizeImage = img; }
+        }
+      }catch(e){}
+      return __confirmSendYes_persist && __confirmSendYes_persist();
+    };
+  }
+
+  // Also wrap sendChallenge to stamp if still missing and clear selected after push
+  if(typeof window.sendChallenge === 'function'){
+    var __sendChallenge_persist = window.sendChallenge;
+    window.sendChallenge = function(){
+      try{
+        if(window.pendingChallenge && !window.pendingChallenge.prizeImage){
+          var img = getCurrentPrizeImage();
+          if(img){ window.pendingChallenge.prizeImage = img; }
+        }
+      }catch(e){}
+      var r = __sendChallenge_persist && __sendChallenge_persist();
+      try{ window.selectedPrizeImage = null; }catch(e){}
+      return r;
+    };
+  }
+})();
+
+/* ==== Opponent selection (search + recents + suggestions + invite) ==== */
+(function(){
+  var DEFAULT_SUGGESTIONS = [
+    { username:"Partner", handle:"@partner", email:"", phone:"", avatar:"https://picsum.photos/seed/partner/100" },
+    { username:"Alex R.", handle:"@alex", email:"alex@example.com", phone:"", avatar:"https://picsum.photos/seed/alex/100" },
+    { username:"Jordan P.", handle:"@jordan", email:"", phone:"555-000-1111", avatar:"https://picsum.photos/seed/jordan/100" },
+    { username:"Taylor S.", handle:"@taylor", email:"taylor@example.com", phone:"", avatar:"https://picsum.photos/seed/taylor/100" },
+    { username:"Morgan K.", handle:"@morgan", email:"", phone:"", avatar:"https://picsum.photos/seed/morgan/100" }
+  ];
+
+  function getRecents(){
+    try{ return JSON.parse(localStorage.getItem('decadareRecents')||'[]'); }catch(e){ return []; }
+  }
+  function pushRecent(obj){
+    try{
+      var list = getRecents().filter(function(x){ return x.username !== obj.username; });
+      list.unshift({username:obj.username, handle:obj.handle||"", email:obj.email||"", phone:obj.phone||"", avatar:obj.avatar||""});
+      if(list.length>8) list.length=8;
+      localStorage.setItem('decadareRecents', JSON.stringify(list));
+    }catch(e){}
+  }
+
+  function chooseOpponent(obj){
+    try{
+      if(!obj || !obj.username){ return; }
+      var o = getOpponent && getOpponent() || {};
+      o.username = obj.username;
+      o.handle = obj.handle||""; o.email = obj.email||""; o.phone = obj.phone||"";
+      o.avatar = obj.avatar || o.avatar || "https://picsum.photos/seed/opponent/100";
+      setOpponent && setOpponent(o);
+      pushRecent(o);
+      renderOpponentSelected();
+    }catch(e){}
+  }
+
+  window.clearOpponent = function(){
+    try{
+      var o = getOpponent && getOpponent() || {};
+      o.username = ""; o.handle=""; o.email=""; o.phone="";
+      setOpponent && setOpponent(o);
+      renderOpponentSelected();
+    }catch(e){}
+  };
+
+  window.inviteViaLink = function(){
+    var code = Math.random().toString(36).slice(2,8);
+    var link = "https://decadare.example/invite/"+code;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(link).then(function(){
+        try{ showToast && showToast("Invite link copied to clipboard", "Invite", 3000); }catch(e){ alert("Invite link copied"); }
+      }).catch(function(){ alert(link); });
+    }else{
+      alert(link);
+    }
+  };
+
+  function renderOpponentSelected(){
+    var box = document.getElementById('opponentSelected'); if(!box) return;
+    var o = getOpponent && getOpponent() || {};
+    if(o && o.username){
+      box.style.display='block';
+      box.innerHTML = '<strong>Selected</strong><div style="margin-top:6px;"><img class="avatar-sm" src="'+(o.avatar||"https://picsum.photos/seed/opponent/100")+'" alt=""> '+o.username+(o.handle? " "+o.handle : "")+'</div>';
+    }else{
+      box.style.display='none';
+      box.innerHTML = '';
+    }
+  }
+
+  function renderRecents(){
+    var wrap = document.getElementById('opponentRecents'); if(!wrap) return;
+    wrap.innerHTML='';
+    var r = getRecents();
+    if(r.length===0){
+      wrap.innerHTML = '<span style="opacity:.8">No recents yet</span>';
+      return;
+    }
+    r.forEach(function(u){
+      var chip=document.createElement('div'); chip.className='op-chip';
+      var img=document.createElement('img'); img.src=u.avatar||"https://picsum.photos/seed/opponent/100"; img.alt="";
+      var label=document.createElement('span'); label.textContent=u.username;
+      chip.appendChild(img); chip.appendChild(label);
+      chip.onclick=function(){ chooseOpponent(u); };
+      wrap.appendChild(chip);
+    });
+  }
+
+  function renderSuggestions(filter){
+    var list = DEFAULT_SUGGESTIONS.slice();
+    if(filter){
+      var f = filter.toLowerCase();
+      list = list.filter(function(u){
+        return (u.username && u.username.toLowerCase().includes(f))
+          || (u.handle && u.handle.toLowerCase().includes(f))
+          || (u.email && u.email.toLowerCase().includes(f))
+          || (u.phone && u.phone.toLowerCase().includes(f));
+      });
+    }
+    var wrap = document.getElementById('opponentSuggestions'); if(!wrap) return;
+    wrap.innerHTML='';
+    list.forEach(function(u){
+      var row=document.createElement('div'); row.className='op-row';
+      var img=document.createElement('img'); img.src=u.avatar||"https://picsum.photos/seed/opponent/100"; img.alt="";
+      var span=document.createElement('div'); span.innerHTML='<div><strong>'+u.username+'</strong> '+(u.handle?u.handle:'')+'</div><div style="opacity:.8;font-size:.92rem">'+(u.email||u.phone||'')+'</div>';
+      var btn=document.createElement('button'); btn.className='btn'; btn.textContent='Select'; btn.onclick=function(){ chooseOpponent(u); };
+      row.appendChild(img); row.appendChild(span); row.appendChild(btn);
+      wrap.appendChild(row);
+    });
+    if(list.length===0){
+      wrap.innerHTML = '<div style="opacity:.8">No matches. Enter an email or @handle in the search, then press Enter to add.</div>';
+    }
+  }
+
+  function bindSearch(){
+    var s = document.getElementById('opponentSearch'); if(!s) return;
+    s.addEventListener('input', function(){ renderSuggestions(s.value); });
+    s.addEventListener('keydown', function(e){
+      if(e.key==='Enter'){
+        e.preventDefault();
+        var v = (s.value||'').trim();
+        if(!v){ return; }
+        var u={ username:v, handle: v.startsWith('@')? v : '', email: v.includes('@')? v : '', phone: v.replace(/[^0-9]/g,'').length>=7 ? v : '', avatar:"https://picsum.photos/seed/add"+Math.random().toString(36).slice(2,6)+"/100" };
+        chooseOpponent(u);
+        s.value='';
+        renderSuggestions('');
+      }
+    });
+  }
+
+  // Guard confirmChallenge to require an opponent
+  if(typeof window.confirmChallenge === 'function'){
+    var __confirmChallenge_guard = window.confirmChallenge;
+    window.confirmChallenge = function(){
+      var opp = getOpponent && getOpponent() || {};
+      if(!opp || !opp.username){
+        alert("Please select who you're challenging.");
+        return;
+      }
+      // proceed, but ensure pendingChallenge picks up opponent name
+      var r = __confirmChallenge_guard && __confirmChallenge_guard();
+      try{
+        if(window.pendingChallenge){
+          window.pendingChallenge.opponent = opp.username || "Opponent";
+        }
+        // also append Opponent line in the Review modal for clarity
+        var box = document.getElementById("sendDisclaimerText");
+        if(box && box.innerHTML && !box.innerHTML.includes("Opponent:")){
+          box.innerHTML += '<p><strong>Opponent:</strong> '+(opp.username||'')+(opp.handle? ' '+opp.handle : '')+'</p>';
+        }
+      }catch(e){}
+      return r;
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    renderRecents(); renderSuggestions(''); renderOpponentSelected(); bindSearch();
+  });
+})();
+
+/* ==== Suggestions dropdown + phone auto-select, and remove invite link ==== */
+(function(){
+  // Provide global fallbacks if missing
+  if(typeof window.getOpponent!=='function'){
+    window.getOpponent = function(){ try{ return JSON.parse(localStorage.getItem('decadareOpponent')||'{}'); }catch(e){ return {}; } };
+  }
+  if(typeof window.setOpponent!=='function'){
+    window.setOpponent = function(obj){ try{ localStorage.setItem('decadareOpponent', JSON.stringify(obj||{})); }catch(e){} };
+  }
+
+  function getRecents(){ try{ return JSON.parse(localStorage.getItem('decadareRecents')||'[]'); }catch(e){ return []; } }
+  function pushRecent(obj){
+    try{
+      var list = getRecents().filter(function(x){ return x.username !== obj.username; });
+      list.unshift({username:obj.username, handle:obj.handle||"", email:obj.email||"", phone:obj.phone||"", avatar:obj.avatar||""});
+      if(list.length>8) list.length=8;
+      localStorage.setItem('decadareRecents', JSON.stringify(list));
+    }catch(e){}
+  }
+
+  // Default suggestions (local list)
+  var SUGGESTIONS = [
+    { username:"Partner", handle:"@partner", email:"", phone:"", avatar:"https://picsum.photos/seed/partner/100" },
+    { username:"Alex R.", handle:"@alex", email:"alex@example.com", phone:"", avatar:"https://picsum.photos/seed/alex/100" },
+    { username:"Jordan P.", handle:"@jordan", email:"", phone:"555-000-1111", avatar:"https://picsum.photos/seed/jordan/100" },
+    { username:"Taylor S.", handle:"@taylor", email:"taylor@example.com", phone:"", avatar:"https://picsum.photos/seed/taylor/100" },
+    { username:"Morgan K.", handle:"@morgan", email:"", phone:"", avatar:"https://picsum.photos/seed/morgan/100" }
+  ];
+
+  // Utility to render current selection box if primary function is missing
+  function renderSelectedFallback(){
+    var box = document.getElementById('opponentSelected'); if(!box) return;
+    var o = window.getOpponent(); if(o && o.username){
+      box.style.display='block';
+      box.innerHTML = '<strong>Selected</strong><div style="margin-top:6px;"><img class="avatar-sm" src="'+(o.avatar||"https://picsum.photos/seed/opponent/100")+'" alt=""> '+o.username+(o.handle? ' '+o.handle : '')+'</div>';
+    }else{
+      box.style.display='none'; box.innerHTML='';
+    }
+  }
+
+  function selectOpponent(obj){
+    if(!obj || !obj.username) return;
+    var o = window.getOpponent() || {};
+    o.username = obj.username;
+    o.handle = obj.handle||""; o.email = obj.email||""; o.phone = obj.phone||"";
+    o.avatar = obj.avatar || o.avatar || "https://picsum.photos/seed/opponent/100";
+    window.setOpponent(o);
+    pushRecent(o);
+    // Try native renderer, else fallback
+    try{
+      if(typeof renderOpponentSelected === 'function'){ renderOpponentSelected(); } else { renderSelectedFallback(); }
+    }catch(e){ renderSelectedFallback(); }
+  }
+
+  // Build a floating popover anchored to the search field
+  var pop = null, oppInput = null;
+  function ensurePopover(){
+    if(pop) return pop;
+    pop = document.createElement('div');
+    pop.className = 'suggestions-pop';
+    pop.style.display = 'none';
+    document.body.appendChild(pop);
+    return pop;
+  }
+
+  function positionPopover(){
+    if(!pop || !oppInput) return;
+    var r = oppInput.getBoundingClientRect();
+    pop.style.position = 'absolute';
+    pop.style.left = (window.scrollX + r.left) + 'px';
+    pop.style.top = (window.scrollY + r.bottom + 6) + 'px';
+    pop.style.width = r.width + 'px';
+  }
+
+  function hidePopover(){ if(pop){ pop.style.display='none'; pop.innerHTML=''; } }
+  function showPopover(){ ensurePopover(); positionPopover(); pop.style.display='block'; }
+
+  function renderPopSuggestions(filter){
+    ensurePopover();
+    var list = SUGGESTIONS.slice();
+    if(filter){
+      var f = filter.toLowerCase();
+      list = list.filter(function(u){
+        return (u.username && u.username.toLowerCase().includes(f))
+          || (u.handle && u.handle.toLowerCase().includes(f))
+          || (u.email && u.email.toLowerCase().includes(f))
+          || (u.phone && u.phone.toLowerCase().includes(f));
+      });
+    }
+    pop.innerHTML='';
+    if(list.length===0){
+      var empty=document.createElement('div');
+      empty.style.padding='10px'; empty.style.opacity='.8'; empty.textContent='No matches. Press Enter to add.';
+      pop.appendChild(empty);
+      return;
+    }
+    list.forEach(function(u){
+      var row=document.createElement('div'); row.className='op-row';
+      var img=document.createElement('img'); img.src=u.avatar||"https://picsum.photos/seed/opponent/100"; img.alt="";
+      var span=document.createElement('div'); span.innerHTML='<div><strong>'+u.username+'</strong> '+(u.handle?u.handle:'')+'</div><div style="opacity:.8;font-size:.92rem">'+(u.email||u.phone||'')+'</div>';
+      var btn=document.createElement('button'); btn.className='btn'; btn.textContent='Select';
+      btn.onclick=function(){ selectOpponent(u); hidePopover(); };
+      row.appendChild(img); row.appendChild(span); row.appendChild(btn);
+      pop.appendChild(row);
+    });
+  }
+
+  function isPhoneLike(s){
+    var d = (s||'').replace(/\D+/g,''); return d.length>=10;
+  }
+
+  var autoSelectedFor = null;
+  function bindDropdown(){
+    oppInput = document.getElementById('opponentSearch'); if(!oppInput) return;
+
+    oppInput.addEventListener('focus', function(){
+      renderPopSuggestions(oppInput.value);
+      showPopover();
+    });
+    oppInput.addEventListener('input', function(){
+      var v = oppInput.value||'';
+      if(isPhoneLike(v) && autoSelectedFor !== v){
+        autoSelectedFor = v;
+        var digits = v.replace(/\D+/g,'');
+        var fmt = '('+digits.slice(0,3)+') '+digits.slice(3,6)+'-'+digits.slice(6,10);
+        selectOpponent({ username: fmt, handle:'', email:'', phone: fmt, avatar:"https://picsum.photos/seed/phone/100" });
+        hidePopover();
+        return;
+      }
+      renderPopSuggestions(v);
+      showPopover();
+    });
+    oppInput.addEventListener('keydown', function(e){
+      if(e.key==='Escape'){ hidePopover(); }
+    });
+    oppInput.addEventListener('blur', function(){
+      setTimeout(hidePopover, 150); // allow click to register
+    });
+
+    window.addEventListener('scroll', positionPopover, true);
+    window.addEventListener('resize', positionPopover);
+  }
+
+  // Remove inviteViaLink if present
+  try{ delete window.inviteViaLink; }catch(e){}
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', bindDropdown);
+  } else {
+    bindDropdown();
+  }
+})();
+
+
+/* ==== Enforce Create flow: Opponent + Confirm ONLY on Step 2 ==== */
+(function(){
+  function moveToStep2(){
+    var step1 = document.getElementById('createStep1');
+    var step2 = document.getElementById('createStep2');
+    if(!step1 || !step2) return;
+
+    function findCardByHeader(root, selector, textRegex){
+      var els = root.querySelectorAll(selector);
+      for(var i=0;i<els.length;i++){
+        var el = els[i];
+        var txt = (el.textContent||'').trim();
+        if(new RegExp(textRegex, 'i').test(txt)){
+          // return the nearest .card ancestor
+          var card = el.closest('.card');
+          if(card) return card;
+        }
+      }
+      return null;
+    }
+
+    // Locate targets in Step 1
+    var selCard = findCardByHeader(step1, 'h2', '^\\s*Select\\s+Player\\s+to\\s+Challenge\\s*$');
+    var confCard = findCardByHeader(step1, 'h3', '^\\s*Confirm\\s+Challenge\\s*$');
+
+    // Anchor in Step 2: Rewards card
+    var rewardsCard = findCardByHeader(step2, 'h2', '^\\s*Rewards\\s*$') || step2.querySelector('.card');
+
+    // Move if found
+    if(selCard && step2){
+      if(rewardsCard && rewardsCard.nextSibling){
+        step2.insertBefore(selCard, rewardsCard.nextSibling);
+      }else{
+        step2.appendChild(selCard);
+      }
+    }
+    if(confCard && step2){
+      // ensure confirm appears after the selector
+      var afterNode = findCardByHeader(step2, 'h2', '^\\s*Select\\s+Player\\s+to\\s+Challenge\\s*$') || rewardsCard;
+      if(afterNode && afterNode.nextSibling){
+        step2.insertBefore(confCard, afterNode.nextSibling);
+      }else{
+        step2.appendChild(confCard);
+      }
+    }
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', moveToStep2);
+  } else {
+    moveToStep2();
+  }
+})();
 </script>
 
+<div id="toastWrap"></div>
 </body>
 </html>
