@@ -25,6 +25,17 @@
     font-size:1.5rem;
     line-height:1.6;
   }
+#navAvatar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid white;
+  cursor: pointer;
+  z-index: 9999; /* stays on top */
+}
 
   /* ===== Header with glowing logo ===== */
   .header-container {
@@ -45,7 +56,7 @@
   font-family: 'Great Vibes', cursive;
   font-size: 4rem;
   font-weight: normal;
-  color: #fff; /* black font */
+  color: #fff;
   text-shadow:
      -2px -2px 0 #000,
      2px -2px 0 #000,
@@ -113,7 +124,7 @@
     background:#000;
     border-radius:20px;
     padding:32px; margin:24px auto; text-align:center;
-    max-width:880px; font-size:1.2rem;
+    max-width:600px; font-size:1.2rem;
     border:1px solid var(--border); color:var(--ink);
     box-shadow: 0 0 8px rgba(255,192,203,0.6),
                 0 0 16px rgba(255,255,255,0.4),
@@ -132,12 +143,12 @@
   ::placeholder{color:#777;}
   .row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;align-items:center}
   .chip{display:inline-block;background:var(--red-dark);color:#fff;
-    border-radius:999px;padding:8px 16px;font-weight:700;font-size:1.1rem;border:1px solid var(--border);}
+    border-radius:999px;padding:8px 16px;font-weight:500;font-size:1.1rem;border:1px solid var(--border);}
   .btn{border:1px solid var(--border);border-radius:16px;padding:16px 20px;background:var(--red);
-    color:#fff;font-weight:700;cursor:pointer;font-size:1.2rem;}
+    color:#fff;font-weight:500;cursor:pointer;font-size:1.2rem;}
   .btn:hover{background:var(--red-dark)}
   .btn-soft{background:var(--red-soft)}
-  .dropdown{border-radius:20px;background:var(--bg);margin:12px auto;max-width:860px;font-size:1.2rem;border:1px solid var(--border);}
+  .dropdown{border-radius:20px;background:var(--bg);margin:12px auto;max-width:600px;font-size:1.2rem;border:1px solid var(--border);}
   .dropdown-header{font-family:'Great Vibes', cursive;font-size:2rem;font-weight:normal;color:var(--ink);text-align:center;margin:16px 0;}
   .dropdown-content{display:none;max-height:320px;overflow-y:auto;padding:12px;background:var(--bg);}
   .dropdown.expanded .dropdown-content{display:block}
@@ -153,783 +164,60 @@
   .close-x{position:absolute;top:12px;right:12px;font-size:1.5rem;color:#fff;background:none;border:none;}
   main section { display:none; }
   main section.active { display:block; }
+
+  /* ===== Responsive font adjustments for smaller screens ===== */
+  @media (max-width: 768px) {
+    html, body {
+      font-size: 1.1rem;  /* smaller base font */
+    }
+    .decadare-title {
+      font-size: 2.5rem;  /* scale title down */
+    }
+    h2, h3 {
+      font-size: 1.4rem;
+    }
+    .btn {
+      font-size: 1rem;
+      padding: 12px 16px;
+    }
+    nav button {
+      font-size: 1rem;
+      padding: 14px;
+    }
+  }
 </style>
-
-
 </head>
 <body>
-
-<div class="header-container" style="text-align:center; margin:40px auto; position:relative; display:inline-block; z-index:0;">
-  <!-- Glowing logo background -->
-  <div class="logo" style="position:relative; z-index:0;">
-    <div class="circle left"></div>
-    <div class="circle right"></div>
-    <div class="spark"></div>
+  <div class="header-container">
+    <div class="logo">
+      <div class="circle left"></div>
+      <div class="circle right"></div>
+      <div class="spark"></div>
+    </div>
+    <header class="decadare-title">Decadare</header>
   </div>
 
-  <!-- Foreground Header text -->
-  <header class="decadare-title" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); z-index:2; font-family:'Great Vibes', cursive; font-size:4rem; color:#fff;"> Decadare
- </header>
-</div>
-</body>
-
-  <!-- Avatar absolute top-left -->
-  <img 
-    id="navAvatar" 
-    src="https://via.placeholder.com/400" 
-    alt="Avatar"
-    style="position:absolute; top:20px; left:20px; height:200px; width:200px; border-radius:50%; cursor:pointer; z-index 1000;" 
-    onclick="navTo('account')"
-  >
+  <!-- Avatar -->
+  <img id="navAvatar" src="https://via.placeholder.com/200" alt="Avatar"
+    onclick="alert('Go to Account')" />
 
   <!-- Centered Home button -->
-  <div style="text-align:center; margin:12px 0;">
-    <button id="homeBtn" class="btn btn-soft" onclick="navTo('home')">Home</button>
+  <div class="home-btn-wrapper" style="text-align:center; margin:8px 0;">
+    <button id="homeBtn" class="btn" onclick="alert('Go Home')">Home</button>
   </div>
 
   <main>
-
-  </header>
-<!-- In your <head> section, inside <style> add this -->
-
-
-
-<main>
-  <section id="home" class="active">
-  <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-    <h2>Turn moments into meaningful dares!</h2>
-    <button class="btn" onclick="openAccount()">Account</button>
-    <button class="btn" onclick="navTo('create')">Create</button>
-    <button class="btn" onclick="navTo('active')">Active</button>
-    <button class="btn" onclick="navTo('wins')">Wins</button>
-    <button class="btn" onclick="navTo('proof')">Proof</button>
-    <button class="btn" onclick="navTo('history')">History</button>
-  </div>
-</section>
-
-  <section id="create">
-    <div class="card">
-      <h2>Create Challenge</h2>
-      <label>Description (Decency/Decadence)</label>
-      <textarea id="challengeDescription" placeholder="Selected challenge will appear here..."></textarea>
-      <div style="margin-top:8px;text-align:left">
-        <label style="display:flex;align-items:center;gap:6px;font-weight:600;color:#5a2a2a;">
-          <input type="checkbox" id="requiresResponse" /> Response after acceptance required
-        </label>
+    <section id="home" class="active">
+      <div class="card">
+        <h2>Turn moments into meaningful dares!</h2>
+        <button class="btn">Account</button>
+        <button class="btn">Create</button>
+        <button class="btn">Active</button>
+        <button class="btn">Wins</button>
+        <button class="btn">Proof</button>
+        <button class="btn">History</button>
       </div>
-      <div class="row" style="margin-top:8px">
-        <label>Timer 
-          <select class="input" id="challengeTimer">
-            <option value="30">30 seconds</option>
-            <option value="60">1 minute</option>
-            <option value="300">5 minutes</option>
-            <option value="600">10 minutes</option>
-            <option value="1200">20 minutes</option>
-            <option value="1800">30 minutes</option>
-            <option value="3600">1 hour</option>
-            <option value="7200">2 hours</option>
-            <option value="86400">1 day</option>
-          </select>
-        </label>
-        <label>Rules (optional): <input class="input" type="text" id="challengeRules" placeholder="Any special rules..."/></label>
-        <label>Series</label>
-        <select class="input" id="seriesSelect">
-          <option value="">Single Game</option>
-          <option value="bo3">Best of 3 (2 out of 3)</option>
-          <option value="bo7">Best of 7 (4 out of 7)</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Decency</h3>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Daily Habits</div><div class="dropdown-content" id="Daily Habits"></div></div>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Lifestyle Fun</div><div class="dropdown-content" id="Lifestyle Fun"></div></div>
-    </div>
-
-    <div class="card">
-      <h3>Decadence</h3>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Playful Intimacy</div><div class="dropdown-content" id="Playful Intimacy"></div></div>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Romance Boosters</div><div class="dropdown-content" id="Romance Boosters"></div></div>
-    </div>
-
-    <div class="card">
-      <h3>Rewards</h3>
-      <label>Prize/Stakes (manual)</label>
-      <input class="input" type="text" id="prizeStakes" placeholder="Select or type prize/stakes" />
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Stakes</div><div class="dropdown-content" id="stakesList"></div></div>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Prizes</div><div class="dropdown-content" id="prizesList"></div></div>
-      <div class="dropdown"><div class="dropdown-header" onclick="toggleDD(this)">Company Prizes</div><div class="dropdown-content" id="companyPrizes"></div></div>
-    </div>
-
-    <div class="card"><button class="btn" onclick="confirmChallenge()">Confirm Challenge</button></div>
-  </section>
-
-  <section id="confirm">
-    <div class="card">
-      <h2>Challenge Details</h2>
-      <p id="detailDesc"></p>
-      <p>Prize/Stakes: <span id="detailStake"></span></p>
-      <p>Rules: <span id="detailRules"></span></p>
-      <p>Series: <span id="detailSeries"></span></p>
-      <p>Response Required: <span id="detailRequiresResponse"></span></p>
-            <p>Time left: <span class="timer" id="detailTimer"></span></p>
-      <div class="row">
-        <button class="btn" onclick="sendChallenge()">Send to Opponent</button>
-        <button class="btn btn-soft" onclick="navTo('create')">Back</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="active">
-    <h2>Active Challenges</h2>
-    <div id="activeList"></div>
-  </section>
-
-  <section id="wins">
-    <h2>My Wins</h2>
-    <div id="winsList"></div>
-  </section>
-
-  <section id="proof">
-    <h2>My Proof (Losses)</h2>
-    <div id="proofList"></div>
-  </section>
-
-  <section id="history">
-    <h2>History</h2>
-    <div id="historyList"></div>
-  </section>
-
-
-<section id="account">
-  <div class="card">
-    <h2>Account Information</h2>
-    <img id="avatarPreview" src="https://via.placeholder.com/100" alt="Avatar" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:2px solid #999;margin-bottom:12px">
-    <input type="file" id="avatarUpload" accept="image/*">
-    <input type="text" id="username" placeholder="Name">
-    <input type="email" id="useremail" placeholder="Email">
-    <input type="tel" id="userphone" placeholder="Phone">
-    <div style="margin-top:10px;">
-      <button class="btn" onclick="saveAccount()">Save</button>
-      <button class="btn btn-soft" onclick="logout()">Logout</button>
-    </div>
-  </div>
-</section>
-
-
-<section id="signin">
-  <div class="card">
-    <h2>Sign In</h2>
-    <p><input class="input" type="email" id="signinEmail" placeholder="Email"></p>
-    <p><input class="input" type="password" id="signinPassword" placeholder="Password"></p>
-    <div class="row" style="margin-top:10px;">
-      <button class="btn" onclick="signIn()">Sign In</button>
-      <button class="btn btn-soft" onclick="openAccount()">Create Account</button>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<!-- Modals -->
-<div id="winModal" class="modal-backdrop">
-  <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeWinModal(event)">×</button>
-    <h2>Challenge Won!</h2>
-    <p id="winDetails"></p>
-    <h3 style="color:var(--red-dark)">Prize / Stake</h3>
-    <p id="winPrize"></p>
-  </div>
-</div>
-
-<div id="receiveModal" class="modal-backdrop">
-  <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeReceiveModal(event)">×</button>
-    <h2>New Challenge Received!</h2>
-    <p id="receiveDesc"></p>
-    <p><strong>Prize / Stakes:</strong> <span id="receivePrize"></span></p>
-    <p><strong>Rules:</strong> <span id="receiveRules"></span></p>
-    <p><strong>Series:</strong> <span id="receiveSeries"></span></p>
-    <div class="row">
-      <button class="btn" onclick="acceptChallenge()">Accept</button>
-      <button class="btn btn-soft" onclick="declineChallenge()">Decline</button>
-    </div>
-  </div>
-</div>
-
-<div id="disclaimerModal" class="modal-backdrop">
-  <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeDisclaimer(event)">×</button>
-    <h2>Confirm Winner</h2>
-    <p id="disclaimerText"></p>
-    <div class="row" style="margin-top:12px">
-      <button class="btn" onclick="confirmDeclare()">Yes, Confirm</button>
-      <button class="btn btn-soft" onclick="closeDisclaimer(event)">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<div id="winsDetailModal" class="modal-backdrop">
-  <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeWinsDetail(event)">×</button>
-    <h2>Win Details</h2>
-    <p id="winsDetailDesc"></p>
-    <p><strong>Prize/Stakes:</strong> <span id="winsDetailStake"></span></p>
-    <p><strong>Rules:</strong> <span id="winsDetailRules"></span></p>
-    <p><strong>Series:</strong> <span id="winsDetailSeries"></span></p>
-    <p><strong>Final Score:</strong> <span id="winsDetailScore"></span></p>
-  </div>
-</div>
-
-<div id="proofDetailModal" class="modal-backdrop">
-  <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeProofDetail(event)">×</button>
-    <h2>Loss Details</h2>
-    <p id="proofDetailDesc"></p>
-    <p><strong>Prize/Stakes:</strong> <span id="proofDetailStake"></span></p>
-    <p><strong>Rules:</strong> <span id="proofDetailRules"></span></p>
-    <p><strong>Series:</strong> <span id="proofDetailSeries"></span></p>
-    <p><strong>Final Score:</strong> <span id="proofDetailScore"></span></p>
-  </div>
-</div>
-
-<div id="historyDetailModal" class="modal-backdrop">
-  <div class="card modal-card">
-    <button class="btn btn-soft close-x" onclick="closeHistoryDetail(event)">×</button>
-    <h2>History Details</h2>
-    <p id="historyDetailDesc"></p>
-    <p><strong>Prize/Stakes:</strong> <span id="historyDetailStake"></span></p>
-    <p><strong>Rules:</strong> <span id="historyDetailRules"></span></p>
-    <p><strong>Series:</strong> <span id="historyDetailSeries"></span></p>
-    <p><strong>Final Score:</strong> <span id="historyDetailScore"></span></p>
-    <p id="historyExtra"></p>
-  </div>
-</div>
-
-<script>
-// ======= State & Setup =======
-let activeChallenges = JSON.parse(localStorage.getItem("activeChallenges") || "[]");
-let historyChallenges = JSON.parse(localStorage.getItem("historyChallenges") || "[]");
-let wins = JSON.parse(localStorage.getItem("wins") || "[]");
-let proofs = JSON.parse(localStorage.getItem("proofs") || "[]");
-let isInitiator = true; // testing role; only initiator can edit scores / declare
-
-const descriptionBox = document.getElementById("challengeDescription");
-const rulesBox = document.getElementById("challengeRules");
-const roleChip = document.getElementById("roleChip");
-
-// Notifications permission
-document.addEventListener("DOMContentLoaded", ()=>{
-  if ("Notification" in window) {
-    try{ Notification.requestPermission(); }catch(e){}
-  }
-});
-
-// ======= Router =======
-
-function navTo(pageId){
-  document.querySelectorAll("main section").forEach(sec=>sec.classList.remove("active"));
-  const t=document.getElementById(pageId);
-  if(t){ t.classList.add("active"); }
-  const backBtn=document.getElementById('backBtn');
-  if(backBtn){ backBtn.style.display = (pageId==='home'||pageId==='signin') ? 'none' : 'inline-block'; }
-  if(pageId==='account' && typeof loadAccount==='function'){ loadAccount(); }
-}
-
-function toggleDD(h){ h.parentElement.classList.toggle("expanded"); }
-function toggleRole(){ isInitiator = !isInitiator; roleChip.textContent = isInitiator ? "Initiator" : "Opponent"; renderAll(); }
-
-// ======= Options helper =======
-function addOption(containerId, text, targetId){
-  const container = document.getElementById(containerId);
-  if(!container) return;
-  const row = document.createElement("div");
-  row.className="option";
-  row.innerHTML = "<span>"+text+"</span>";
-  const btn = document.createElement("button");
-  btn.textContent = "Use";
-  btn.onclick = () => {
-    const target = document.getElementById(targetId);
-    if(target.tagName.toLowerCase()==="textarea" || target.tagName.toLowerCase()==="input"){
-      target.value = text;
-    } else {
-      target.textContent = text;
-    }
-    const dd = container.closest(".dropdown");
-    if(dd) dd.classList.remove("expanded");
-  };
-  row.appendChild(btn);
-  container.appendChild(row);
-}
-
-// ======= Lists (25 each where required) =======
-const dailyHabits = ["Drink 8 glasses of water today","Go for a 20-minute walk together","Cook a healthy dinner at home","Journal one gratitude each","Meditate for 10 minutes together","Swap phone-free time for 1 hour","Stretch before bed","Share your favorite song of the day","Compliment each other 3 times","Take turns giving each other a short massage","Read aloud 2 pages from a book","Share a funny memory at dinner","Do 20 squats or pushups together","Plan tomorrow’s meals together","Share one new thing you learned today","Make the bed together","Drink tea instead of coffee for one round","Pack lunch for each other","Write a sticky note of encouragement","Do a 5-minute breathing exercise together","Declutter one drawer or shelf together","Dance to one full song","Share a 2-minute eye contact silence","Call or text one family member together","Give each other a thank you at bedtime"];
-const lifestyleFun = ["Watch a new movie tonight","Play a board game or card game","Try a new recipe","Explore a new café or restaurant","Take a selfie adventure outdoors","Plan your dream vacation together","Sing karaoke at home","Do a random act of kindness as a pair","Try drawing portraits of each other","Bake cookies or cake together","Learn a dance on YouTube","Go stargazing outside","Write a short poem for each other","Try a yes day for small requests","Go on a late-night drive","Build a pillow fort","Try a puzzle or Lego set","Visit a local landmark","Do a themed dinner (Italian night, taco night)","Play a trivia quiz against each other","Listen to a podcast together","Watch sunrise or sunset","Share childhood photos and stories","Write a silly short story together","Make a playlist for each other"];
-const playfulIntimacy = ["Kiss for 30 seconds without stopping","Hold hands for an entire walk","Whisper three fantasies into each other’s ear","Write each other a flirty note","Share a slow dance in the living room","Give a one-minute shoulder rub","Touch each other without speaking for 2 minutes","Send a playful text while in the same room","Blindfold partner and guide them around the room","Try a new cuddle position","Roleplay as strangers meeting for the first time","Take a shower together","Tell each other a secret desire","Draw a heart on your partner’s hand","Exchange top three turn-ons","Do a lap-sit challenge for one song","Try feeding each other dessert","Tickle each other for 1 minute","Share favorite body compliment","Dance close with eyes closed","Recreate your first kiss","Create a secret couple handshake","Share your most attractive outfit tonight","Practice kissing in different ways","Play a truth or dare mini round"];
-const romanceBoosters = ["Light candles during dinner","Write each other a love letter","Plan a surprise date night","Recreate your first date meal","Say I love you five times today","Share why you first fell for each other","Give partner your jacket or sweater","Watch wedding/engagement videos together","Plan a weekend getaway idea","Leave a hidden love note to find later","Play five compliments back and forth","Hold hands under the table for 10 minutes","Cook breakfast in bed","Write names with a heart on foggy mirror","Share a romantic movie scene reenactment","Play favorite couple’s song and dance","Take a photo together in a new place","Share your dream anniversary trip","Make a bucket list of 10 couple goals","Tell each other one thing you’re proud of","Give each other foot rubs","Take turns saying You’re mine playfully","Plan a surprise weekend breakfast","Look into each other’s eyes silently for 3 minutes","Share one wish for the relationship"];
-const stakes = ["Do the dishes","Cook dinner","Pay for dessert","Foot massage 10 minutes","Winner chooses next movie","Loser plans tomorrow’s breakfast","Clean the living room","Loser sings a song of winner’s choice","Winner picks date night location","Loser makes bed for a week","Winner controls TV remote","Loser buys snacks","Take trash out for 3 days","Winner gets car music control","Loser compliments winner 5 times","Winner gets a coffee bought","Loser does one chore card chosen at random","Winner picks bedtime story","Loser must write a haiku for winner","Winner gets dessert first","Loser vacuums tomorrow","Winner gets breakfast served","Loser gives winner 5 back pats","Winner controls playlist","Loser sets up candles tonight"];
-const prizes = ["Candlelit dinner","A box of chocolates","A handwritten love poem","Surprise breakfast in bed","A flower bouquet","A massage coupon","Romantic playlist made","A framed photo of both","A love letter","Bubble bath prepared","Picnic setup","Homemade dessert","Breakfast cooked by partner","Evening of no chores","Small wrapped gift","Spa night at home","Personalized coupon book","Favorite drink delivered","Winner gets a serenade","A surprise coffee date","Outfit chosen by partner","Favorite meal prepared","Scented candle gift","A kiss marathon challenge","Romantic note hidden somewhere"];
-const companyPrizes = ["Coffee Date from Local Café","Spa Voucher by BlissCo","Dinner for Two by Bistro Partners","Movie Night Tickets by CineWorld","Dessert Box by SweetTreats","Flower Delivery by Bloom Alley","Wine Tasting Pass by Vino Club","Brunch for Two by SunnySide","Picnic Kit by Outdoor Co","Fitness Class Pass by FitTogether"];
-
-// Hydrate lists
-dailyHabits.forEach(t=>addOption("Daily Habits",t,"challengeDescription"));
-lifestyleFun.forEach(t=>addOption("Lifestyle Fun",t,"challengeDescription"));
-playfulIntimacy.forEach(t=>addOption("Playful Intimacy",t,"challengeDescription"));
-romanceBoosters.forEach(t=>addOption("Romance Boosters",t,"challengeDescription"));
-stakes.forEach(t=>addOption("stakesList",t,"prizeStakes"));
-prizes.forEach(t=>addOption("prizesList",t,"prizeStakes"));
-companyPrizes.forEach(t=>addOption("companyPrizes",t,"prizeStakes"));
-
-// ======= Confirm view with live detail timer =======
-let pendingChallenge = null;
-let detailTimerId = null;
-
-function confirmChallenge(){
-  const desc = descriptionBox.value.trim();
-  const prizeStakes = document.getElementById("prizeStakes").value.trim();
-  const series = document.getElementById("seriesSelect").value;
-  if(!desc){ alert("Please select or type a challenge."); return; }
-  const secs = parseInt(document.getElementById("challengeTimer").value)||60;
-  const rules = rulesBox.value.trim();
-
-  pendingChallenge = { description: desc, stake: prizeStakes || "None", rules: rules || "", series: series, duration: secs,
-    score: {a:0,b:0},
-    initiator: "Initiator",
-    opponent: "Opponent"
-  };
-
-  document.getElementById("detailDesc").textContent = desc;
-  document.getElementById("detailStake").textContent = pendingChallenge.stake;
-  document.getElementById("detailRules").textContent = pendingChallenge.rules || "—";
-  document.getElementById("detailSeries").textContent = series===""?"Single":(series==="bo3"?"BEST OF 3":"BEST OF 7");
-  document.getElementById("detailRequiresResponse").textContent = pendingChallenge.requiresResponse ? "Yes — Opponent must reply" : "No";
-
-  document.getElementById("detailTimer").textContent = secs + "s";
-  navTo("confirm");
-}
-
-function bindDetailTimer(deadline){
-  clearInterval(detailTimerId);
-  const el=document.getElementById("detailTimer");
-  const tick=()=>{
-    const rem=Math.max(0,Math.floor((deadline-Date.now())/1000));
-    el.textContent=rem+"s";
-    if(rem<=0){ clearInterval(detailTimerId); el.textContent="Expired"; }
-  };
-  tick();
-  detailTimerId=setInterval(tick,1000);
-}
-
-function sendChallenge(){
-  if(!pendingChallenge) return;
-  pendingChallenge.timerStarted=false;
-  activeChallenges.push(pendingChallenge);
-  localStorage.setItem("activeChallenges", JSON.stringify(activeChallenges));
-  // Notify opponent of received challenge
-  notifyReceived(pendingChallenge);
-  pendingChallenge=null;
-  renderAll();
-  navTo("active");
-}
-
-// ======= Renders =======
-let activeTimers={};
-
-function renderAll(){
-  renderActive();
-  renderWins();
-  renderProof();
-  renderHistory();
-}
-
-function card(item,extra){return "<div class='card'><p><strong>"+item.description+"</strong></p><p>"+extra+"</p></div>";}
-
-function renderWins(){
-  const wrap=document.getElementById("winsList");wrap.innerHTML="";
-  wins.forEach((w,i)=>{
-    const div=document.createElement("div");div.className="card";
-    div.innerHTML=`<p><strong>${w.description}</strong></p><p>WIN</p>`;
-    div.onclick=()=>showWinsDetail(w);
-    wrap.appendChild(div);
-  });
-}
-
-function renderProof(){
-  const wrap=document.getElementById("proofList");wrap.innerHTML="";
-  proofs.forEach((p,i)=>{
-    const div=document.createElement("div");div.className="card";
-    div.innerHTML=`<p><strong>${p.description}</strong></p><p>LOSS</p>`;
-    div.onclick=()=>showProofDetail(p);
-    wrap.appendChild(div);
-  });
-}
-
-function renderHistory(){
-  const wrap=document.getElementById("historyList");wrap.innerHTML="";
-  historyChallenges.forEach((h,i)=>{
-    const div=document.createElement("div");div.className="card";
-    let label = h.declined ? "DECLINED" : (h.expired ? "EXPIRED" : "DONE");
-    div.innerHTML=`<p><strong>${h.description}</strong></p><p>${label}</p>`;
-    div.onclick=()=>showHistoryDetail(h);
-    wrap.appendChild(div);
-  });
-}
-
-function renderActive(){
-  const wrap=document.getElementById("activeList");wrap.innerHTML="";
-  Object.values(activeTimers).forEach(id=>clearInterval(id));activeTimers={};
-  activeChallenges.forEach((c,i)=>{
-    const div=document.createElement("div");div.className="card";
-    const needed = c.series==="bo3"?2:(c.series==="bo7"?4:null);
-    const scoreA=c.score?.a||0;
-    const scoreB=c.score?.b||0;
-    const winnerSide = needed ? (scoreA>=needed?'a':(scoreB>=needed?'b':null)) : null;
-    const saveDisabled = needed ? (!winnerSide ? "disabled" : "") : "";
-    let controls="";
-    if(!isInitiator){
-      controls = "<p class='chip'>Read-only (Opponent View)</p>";
-    } else if(!needed){
-      // Single game
-      controls=`<div class="row" style="margin-top:8px">
-        <button class="btn" onclick="openDisclaimer(${i},'a')">Declare Winner (Initiator)</button>
-        <button class="btn btn-soft" onclick="openDisclaimer(${i},'b')">Declare Winner (Opponent)</button>
-      </div>`;
-    } else {
-      controls=`<div class="row" style="margin-top:8px">
-        <button class="btn" ${saveDisabled} onclick="if(!this.hasAttribute('disabled')) openDisclaimer(${i},'${winnerSide||''}')">Save Result</button>
-      </div>`;
-    }
-
-    div.innerHTML=`
-      <p><strong>${c.description}</strong></p>
-      <p>Prize/Stakes: ${c.stake||"—"} | Rules: ${c.rules||"—"}</p>
-      <p>Series: ${c.series===""?"Single":(c.series==="bo3"?"BEST OF 3":"BEST OF 7")} | Score: ${(c.score?c.score.a:0)} - ${(c.score?c.score.b:0)}</p>
-      ${c.requiresResponse ? `<p><strong>Response:</strong> ${c.response||"Pending"}</p>` : ""}
-      <p>Time left: <span class="timer" id="t-${i}"></span></p>
-      <div class="row">
-        <span class="chip">Initiator: <span id="sa-${i}">${c.score?.a||0}</span></span>
-        ${isInitiator?`<button class="btn" onclick="bump(${i},'a',1)">+ Initiator</button>
-        <button class="btn btn-soft" onclick="bump(${i},'a',-1)">– Initiator</button>`:""}
-        <span class="chip">Opponent: <span id="sb-${i}">${c.score?.b||0}</span></span>
-        ${isInitiator?`<button class="btn" onclick="bump(${i},'b',1)">+ Opponent</button>
-        <button class="btn btn-soft" onclick="bump(${i},'b',-1)">– Opponent</button>`:""}
-      </div>
-      ${controls}
-    `;
-    wrap.appendChild(div);
-    const elId="t-"+i;
-    const tick=()=>{
-      const el=document.getElementById(elId);
-      if(!el){clearInterval(activeTimers[elId]);return;}
-      const rem=Math.max(0,Math.floor((c.deadline-Date.now())/1000));
-      el.textContent=rem+"s";
-      if(rem<=0){
-        clearInterval(activeTimers[elId]);
-        if(!c.expired){ c.expired = true; persist(); }
-        el.textContent = "Expired";
-        return;
-      }
-    };
-    tick();
-    activeTimers[elId]=setInterval(tick,1000);
-  });
-}
-
-// ======= Score & Winner =======
-function bump(index,side,delta){
-  if(!isInitiator) return;
-  const c=activeChallenges[index];if(!c.score)c.score={a:0,b:0};
-  c.score[side]=Math.max(0,(c.score[side]||0)+delta);
-  document.getElementById(side==='a'?'sa-'+index:'sb-'+index).textContent=c.score[side];
-  persist();
-  renderActive();
-}
-
-// Disclaimer flow
-let declareIdx = null;
-let declareSide = null;
-function openDisclaimer(index, winnerSide){
-  declareIdx = index; declareSide = winnerSide;
-  const user = (winnerSide==='a'?'Initiator':'Opponent');
-  document.getElementById("disclaimerText").textContent = "This will close the challenge and it is irreversible. Are you sure you want to declare " + user + " winner?";
-  document.getElementById("disclaimerModal").classList.add("show");
-}
-function closeDisclaimer(e){ if(e) e.stopPropagation(); document.getElementById("disclaimerModal").classList.remove("show"); }
-function confirmDeclare(){
-  if(declareIdx===null || !declareSide){ closeDisclaimer(); return; }
-  finalizeDeclare(declareIdx, declareSide);
-  closeDisclaimer();
-}
-
-function finalizeDeclare(index,side){
-  const c=activeChallenges.splice(index,1)[0];
-  if(side==='a'){ wins.push(c); notifyWin(c); } else { proofs.push(c); }
-  historyChallenges.push(c);
-  persist();
-  renderAll();
-}
-
-// ======= Wins / Proof / History Modals =======
-function showWinsDetail(win){
-  document.getElementById("winsDetailDesc").innerText = win.description;
-  document.getElementById("winsDetailStake").innerText = win.stake||"—";
-  document.getElementById("winsDetailRules").innerText = win.rules||"—";
-  document.getElementById("winsDetailSeries").innerText = win.series===""?"Single":(win.series==="bo3"?"BEST OF 3":"BEST OF 7");
-  document.getElementById("winsDetailScore").innerText = (win.score?win.score.a:0) + " - " + (win.score?win.score.b:0);
-  document.getElementById("winsDetailModal").querySelector(".card").insertAdjacentHTML("beforeend","<p><strong>Response:</strong> "+(win.response||"—")+"</p>");
-  document.getElementById("winsDetailModal").classList.add("show");
-}
-function closeWinsDetail(e){ if(e) e.stopPropagation(); document.getElementById("winsDetailModal").classList.remove("show"); }
-
-function showProofDetail(p){
-  document.getElementById("proofDetailDesc").innerText = p.description;
-  document.getElementById("proofDetailStake").innerText = p.stake||"—";
-  document.getElementById("proofDetailRules").innerText = p.rules||"—";
-  document.getElementById("proofDetailSeries").innerText = p.series===""?"Single":(p.series==="bo3"?"BEST OF 3":"BEST OF 7");
-  document.getElementById("proofDetailScore").innerText = (p.score?p.score.a:0) + " - " + (p.score?p.score.b:0);
-  document.getElementById("proofDetailModal").querySelector(".card").insertAdjacentHTML("beforeend","<p><strong>Response:</strong> "+(p.response||"—")+"</p>");
-  document.getElementById("proofDetailModal").classList.add("show");
-}
-function closeProofDetail(e){ if(e) e.stopPropagation(); document.getElementById("proofDetailModal").classList.remove("show"); }
-
-function showHistoryDetail(h){
-  document.getElementById("historyDetailDesc").innerText = h.description;
-  document.getElementById("historyDetailStake").innerText = h.stake||"—";
-  document.getElementById("historyDetailRules").innerText = h.rules||"—";
-  document.getElementById("historyDetailSeries").innerText = h.series===""?"Single":(h.series==="bo3"?"BEST OF 3":"BEST OF 7");
-  document.getElementById("historyDetailScore").innerText = (h.score?h.score.a:0) + " - " + (h.score?h.score.b:0);
-  document.getElementById("historyDetailModal").querySelector(".card").insertAdjacentHTML("beforeend","<p><strong>Response:</strong> "+(h.response||"—")+"</p>");
-  document.getElementById("historyExtra").innerText = h.declined ? "(Declined)" : (h.expired ? "(Expired)" : "");
-  document.getElementById("historyDetailModal").classList.add("show");
-}
-function closeHistoryDetail(e){ if(e) e.stopPropagation(); document.getElementById("historyDetailModal").classList.remove("show"); }
-
-// ======= Notifications =======
-function notifyWin(win){
-  const body = "Prize: "+(win.stake||"—");
-  if("Notification" in window && Notification.permission==="granted"){
-    try{ new Notification("You Won!",{ body }); }catch(e){ alert("You Won! "+body); }
-  } else { alert("You Won! "+body); }
-}
-function notifyReceived(challenge){
-  if("Notification" in window && Notification.permission==="granted"){
-    try{
-      const n = new Notification("New Challenge!",{ body: challenge.initiator+" challenged you: "+challenge.description });
-      n.onclick = ()=>{ window.focus(); showReceiveModal(challenge); };
-    }catch(e){
-      alert("New Challenge: "+challenge.description);
-      showReceiveModal(challenge);
-    }
-  } else {
-    alert("New Challenge: "+challenge.description);
-    showReceiveModal(challenge);
-  }
-}
-
-// Receive modal controls
-let pendingReceived = null;
-function showReceiveModal(challenge){
-  document.getElementById("receiveDesc").innerText = challenge.description;
-  document.getElementById("receivePrize").innerText = challenge.stake || "—";
-  document.getElementById("receiveRules").innerText = challenge.rules || "—";
-  document.getElementById("receiveSeries").innerText = challenge.series===""?"Single":(challenge.series==="bo3"?"BEST OF 3":"BEST OF 7");
-  document.getElementById("receiveModal").classList.add("show");
-  pendingReceived = challenge;
-}
-function closeReceiveModal(e){ if(e) e.stopPropagation(); document.getElementById("receiveModal").classList.remove("show"); }
-function acceptChallenge(){ if(pendingReceived){
-    if(!pendingReceived.timerStarted){ pendingReceived.deadline = Date.now() + (pendingReceived.duration*1000); pendingReceived.timerStarted=true; }
-    activeChallenges.push(pendingReceived);
-    persist(); renderAll();
-  } closeReceiveModal(); }
-function declineChallenge(){ if(pendingReceived){ historyChallenges.push(Object.assign({},pendingReceived,{declined:true})); persist(); renderAll(); } closeReceiveModal(); }
-
-// ======= Test Buttons =======
-function testWin(){
-  const sample={ description:"Sample challenge won", stake:"Dinner for Two", rules:"—", series:"bo3", score:{a:2,b:1} };
-  notifyWin(sample);
-  showWinsDetail(sample);
-}
-function testReceived(){
-  const sample={ initiator:"Alex", description:"Cook dinner together", stake:"Loser does dishes", rules:"No takeout", series:"bo3", score:{a:0,b:0}, deadline: Date.now()+600000 };
-  notifyReceived(sample);
-}
-
-// ======= Persistence =======
-function persist(){
-  localStorage.setItem("activeChallenges",JSON.stringify(activeChallenges));
-  localStorage.setItem("historyChallenges",JSON.stringify(historyChallenges));
-  localStorage.setItem("wins",JSON.stringify(wins));
-  localStorage.setItem("proofs",JSON.stringify(proofs));
-}
-
-
-let state = { user:{name:'',email:'',loggedIn:false,avatar:null} };
-
-function saveAccount(){
-  const name=document.getElementById("username").value;
-  const email=document.getElementById("useremail").value;
-  const avatar=document.getElementById("avatarPreview").src || null;
-  state.user={name,email,loggedIn:true,avatar};
-  localStorage.setItem("decadareUser",JSON.stringify(state.user));
-  updateNavAvatar();
-  showToast("Account saved!");
-}
-function logout(){
-  state.user={name:'',email:'',loggedIn:false,avatar:null};
-  localStorage.removeItem("decadareUser");
-  updateNavAvatar();
-  showToast("Logged out");
-  navTo('home');
-}
-function updateNavAvatar(){
-  const navAvatar=document.getElementById("navAvatar");
-  if(state.user && state.user.avatar){
-    navAvatar.src=state.user.avatar;
-    navAvatar.style.display="inline-block";
-    navAvatar.onclick=()=>navTo('account');
-  } else {
-    navAvatar.style.display="none";
-  }
-}
-window.addEventListener("DOMContentLoaded", ()=>{
-  const saved=localStorage.getItem("decadareUser");
-  if(saved){
-    state.user=JSON.parse(saved);
-    if(state.user.name) document.getElementById("username").value=state.user.name;
-    if(state.user.email) document.getElementById("useremail").value=state.user.email;
-    if(state.user.avatar){
-      document.getElementById("avatarPreview").src=state.user.avatar;
-      updateNavAvatar();
-    }
-  }
-  const up=document.getElementById("avatarUpload");
-  if(up){
-    up.addEventListener("change", e=>{
-      const file=e.target.files[0];
-      if(file){
-        const reader=new FileReader();
-        reader.onload=()=>{
-          document.getElementById("avatarPreview").src=reader.result;
-          state.user.avatar = reader.result;
-          state.user.loggedIn = true;
-          localStorage.setItem("decadareUser", JSON.stringify(state.user));
-          updateNavAvatar();
-          showToast("Avatar updated!");
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  }
-});
-
-// ======= Init =======
-renderAll();
-</script>
-
-<script>
-let pageStack = [];
-function navTo(pageId){
-  const current = document.querySelector('main section.active');
-  if(current && current.id !== pageId){
-    pageStack.push(current.id);
-    current.classList.remove('active');
-  }
-  document.querySelectorAll('main section').forEach(sec=>sec.classList.remove('active'));
-  const target = document.getElementById(pageId);
-  if(target){ target.classList.add('active'); }
-  const backBtn = document.getElementById('backBtn');
-  if(backBtn) backBtn.style.display = (pageId==="home" || pageId==="signin") ? "none" : "inline-block";
-  if(pageId === "account"){ loadAccount(); }
-
-}
-function goBack(){
-  if(pageStack.length>0){
-    const prev = pageStack.pop();
-    document.querySelectorAll('main section').forEach(sec=>sec.classList.remove('active'));
-    const target = document.getElementById(prev) || document.getElementById('home');
-    if(target){ target.classList.add('active'); }
-    const backBtn = document.getElementById('backBtn');
-    if(backBtn) backBtn.style.display = (target.id==="home" || target.id==="signin") ? "none" : "inline-block";
-  } else {
-    navTo('home');
-  }
-}
-function getUser(){ try{ return JSON.parse(localStorage.getItem('decadareUser')||"{}"); }catch(e){ return {}; } }
-function setUser(obj){ localStorage.setItem('decadareUser', JSON.stringify(obj||{})); }
-function updateNavAvatar(){ const u=getUser(); const img=document.getElementById('navAvatar'); if(img) img.src = u.avatar||"https://via.placeholder.com/40"; }
-function loadAccount(){
-  const u = getUser();
-  if(document.getElementById('username')) document.getElementById('username').value = u.username || "";
-  if(document.getElementById('useremail')) document.getElementById('useremail').value = u.email || "";
-  if(document.getElementById('userphone')) document.getElementById('userphone').value = u.phone || "";
-  if(document.getElementById('avatarPreview')) document.getElementById('avatarPreview').src = u.avatar || "https://via.placeholder.com/100";
-}
-function saveAccount(){
-  const u={
-    username:(document.getElementById('username')?.value||"").trim(),
-    email:(document.getElementById('useremail')?.value||"").trim(),
-    phone:(document.getElementById('userphone')?.value||"").trim(),
-    avatar:document.getElementById('avatarPreview')?.src||null,
-    loggedIn:true
-  };
-  setUser(u);
-  updateNavAvatar();
-  pageStack = [];
-  updateNavAvatar();
-  pageStack = []; updateNavAvatar(); navTo('home');
-}
-function logout(){ setUser({loggedIn:false}); updateNavAvatar(); navTo('signin'); }
-document.addEventListener('change',function(e){
-  if(e.target && e.target.id==='avatarUpload'){
-    const file=e.target.files[0]; if(file){ const reader=new FileReader(); reader.onload=()=>{
-      const a=document.getElementById('avatarPreview'); if(a) a.src=reader.result;
-      const u=getUser(); u.avatar=reader.result; u.loggedIn=true; setUser(u); updateNavAvatar();
-    }; reader.readAsDataURL(file);} } });
-function signIn(){
-  const email=(document.getElementById('signinEmail')?.value||"").trim();
-  const pw=(document.getElementById('signinPassword')?.value||"").trim();
-  if(!email||!pw){ alert("Enter email and password"); return; }
-  let u=getUser(); u.email=email;
-  if(!u.avatar) u.avatar="https://via.placeholder.com/40"; u.loggedIn=true; setUser(u); updateNavAvatar(); navTo('home');
-}
-document.addEventListener('DOMContentLoaded',()=>{
-  updateNavAvatar(); const u=getUser();
-  if(u && u.loggedIn && u.email){ navTo("home"); } else { navTo("signin"); }
-  const navAvatar=document.getElementById('navAvatar');
-  if(navAvatar){ navAvatar.onclick=()=>{ loadAccount(); navTo('account'); }; }
-});
-</script>
-
-
-<script>
-function openAccount(){
-  if (typeof loadAccount === 'function') { loadAccount(); }
-  if (typeof navTo === 'function') { navTo('account'); }
-}
-
-document.addEventListener('DOMContentLoaded', function(){
-  // Ensure only Home is active on load
-  var secs = document.querySelectorAll('main section');
-  secs.forEach(function(sec){
-    if(sec.id === 'home'){ sec.classList.add('active'); }
-    else { sec.classList.remove('active'); }
-  });
-  // Make avatar open Account
-  var av = document.getElementById('navAvatar');
-  if(av){ av.onclick = openAccount; }
-});
-</script>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  document.querySelectorAll('main section').forEach(sec=>{
-    if(sec.id==='home'){ sec.classList.add('active'); } else { sec.classList.remove('active'); }
-  });
-});
-</script>
-
+    </section>
+  </main>
 </body>
 </html>
